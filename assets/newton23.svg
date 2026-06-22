@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 240" width="260" height="240">
+  <defs>
+    <linearGradient id="bG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#E09040"/><stop offset="100%" stop-color="#A05810"/></linearGradient>
+    <filter id="n2sh"><feDropShadow dx="1" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="0.4"/></filter>
+  </defs>
+
+  <!-- judul -->
+  <text x="130" y="18" text-anchor="middle" font-family="'Plus Jakarta Sans',sans-serif" font-size="13" font-weight="700" fill="#FFD080">Hukum Newton II &amp; III</text>
+
+  <!-- ===== HK. NEWTON II ===== -->
+  <rect x="14" y="28" width="232" height="100" rx="9" fill="rgba(255,200,50,0.07)" stroke="rgba(255,200,50,0.2)" stroke-width="0.8"/>
+  <text x="130" y="46" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="700" fill="#FFD080">Newton II — F = m × a</text>
+
+  <!-- benda massa kecil (percepatan besar) -->
+  <rect x="30" y="58" width="36" height="30" rx="6" fill="url(#bG)" filter="url(#n2sh)"/>
+  <text x="48" y="77" text-anchor="middle" font-family="sans-serif" font-size="8.5" fill="#fff" font-weight="700">m=1kg</text>
+  <!-- panah gaya -->
+  <line x1="66" y1="73" x2="96" y2="73" stroke="#E85D24" stroke-width="3" stroke-linecap="round"/>
+  <polygon points="96,68.5 110,73 96,77.5" fill="#E85D24"/>
+  <text x="78" y="67" font-family="sans-serif" font-size="9" fill="#E85D24">F=10N</text>
+  <!-- panah percepatan lebih panjang -->
+  <line x1="66" y1="90" x2="112" y2="90" stroke="#40C870" stroke-width="2" stroke-dasharray="4 3" stroke-linecap="round"/>
+  <polygon points="112,86.5 122,90 112,93.5" fill="#40C870"/>
+  <text x="88" y="103" font-family="sans-serif" font-size="9" fill="#40C870">a=10 m/s²</text>
+
+  <!-- benda massa besar (percepatan kecil) -->
+  <rect x="136" y="52" width="62" height="38" rx="6" fill="url(#bG)" filter="url(#n2sh)"/>
+  <text x="167" y="75" text-anchor="middle" font-family="sans-serif" font-size="8.5" fill="#fff" font-weight="700">m=5kg</text>
+  <!-- panah gaya sama -->
+  <line x1="198" y1="71" x2="218" y2="71" stroke="#E85D24" stroke-width="3" stroke-linecap="round"/>
+  <polygon points="218,66.5 228,71 218,75.5" fill="#E85D24"/>
+  <text x="207" y="65" font-family="sans-serif" font-size="9" fill="#E85D24">F=10N</text>
+  <!-- panah percepatan pendek -->
+  <line x1="198" y1="90" x2="212" y2="90" stroke="#40C870" stroke-width="2" stroke-dasharray="4 3" stroke-linecap="round"/>
+  <polygon points="212,86.5 218,90 212,93.5" fill="#40C870"/>
+  <text x="200" y="103" font-family="sans-serif" font-size="9" fill="#40C870">a=2 m/s²</text>
+
+  <text x="130" y="120" text-anchor="middle" font-family="sans-serif" font-size="8.5" fill="#FFEE90" opacity="0.8">Makin besar massa → makin kecil percepatan (jika gaya sama)</text>
+
+  <!-- ===== HK. NEWTON III ===== -->
+  <rect x="14" y="138" width="232" height="88" rx="9" fill="rgba(100,150,255,0.07)" stroke="rgba(100,150,255,0.2)" stroke-width="0.8"/>
+  <text x="130" y="156" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="700" fill="#90C0FF">Newton III — Aksi = Reaksi</text>
+
+  <!-- orang 1 mendorong -->
+  <!-- badan orang kiri -->
+  <circle cx="52" cy="172" r="10" fill="#F5C890"/>
+  <line x1="52" y1="182" x2="52" y2="202" stroke="#4A6080" stroke-width="3" stroke-linecap="round"/>
+  <line x1="52" y1="186" x2="38" y2="196" stroke="#4A6080" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="52" y1="186" x2="70" y2="182" stroke="#4A6080" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="52" y1="202" x2="44" y2="216" stroke="#4A6080" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="52" y1="202" x2="60" y2="216" stroke="#4A6080" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- orang 2 kanan -->
+  <circle cx="208" cy="172" r="10" fill="#F5C890"/>
+  <line x1="208" y1="182" x2="208" y2="202" stroke="#4A6080" stroke-width="3" stroke-linecap="round"/>
+  <line x1="208" y1="186" x2="190" y2="182" stroke="#4A6080" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="208" y1="186" x2="222" y2="196" stroke="#4A6080" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="208" y1="202" x2="200" y2="216" stroke="#4A6080" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="208" y1="202" x2="216" y2="216" stroke="#4A6080" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- panah aksi (ke kanan) -->
+  <line x1="108" y1="190" x2="140" y2="190" stroke="#E85D24" stroke-width="2.5" stroke-linecap="round"/>
+  <polygon points="140,186 152,190 140,194" fill="#E85D24"/>
+  <text x="124" y="183" font-family="sans-serif" font-size="8.5" fill="#E85D24">Aksi →</text>
+  <!-- panah reaksi (ke kiri) -->
+  <line x1="152" y1="198" x2="120" y2="198" stroke="#60A0FF" stroke-width="2.5" stroke-linecap="round"/>
+  <polygon points="120,194 108,198 120,202" fill="#60A0FF"/>
+  <text x="134" y="212" font-family="sans-serif" font-size="8.5" fill="#60A0FF">← Reaksi</text>
+  <text x="130" y="226" text-anchor="middle" font-family="sans-serif" font-size="8.5" fill="#D8E8FF" opacity="0.85">Gaya aksi dan reaksi selalu sama besar, berlawanan arah</text>
+</svg>

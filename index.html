@@ -1,0 +1,1196 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<title>? Murid Bergaya — Gaya & Hukum Newton · IPA SMP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKEN — "MURID BERGAYA" · Deep Purple + Lime Neon
+   ============================================================ */
+:root{
+  --bg0:#12082A;
+  --bg1:#1A0D38;
+  --bg2:#221450;
+  --panel:#1C0C3C;
+  --text:#F2EDFF;
+  --dim:rgba(242,237,255,.68);
+  --mut:rgba(242,237,255,.40);
+  --line:rgba(190,140,255,.16);
+  --line2:rgba(190,140,255,.34);
+
+  --lime:#B8FF3C;
+  --limed:#7EC020;
+  --pink:#FF3D8A;
+  --blue:#38D9F5;
+  --orange:#FF8C42;
+  --teal:#00D4AA;
+  --violet:#A855F7;
+  --green:#00E676;
+  --red:#FF4466;
+  --gold:#FFD600;
+  --warn:#FF9F0A;
+
+  --font-d:'Nunito',system-ui,sans-serif;
+  --font-b:'Nunito',system-ui,sans-serif;
+  --font-m:'Space Grotesk',ui-monospace,monospace;
+
+  --r:16px;--r-lg:22px;--maxw:1100px;
+  --shadow:0 20px 56px -18px rgba(0,0,0,.8);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{font-family:var(--font-b);color:var(--text);background:var(--bg0);line-height:1.65;min-height:100vh;overflow-x:hidden;position:relative}
+
+/* latar gradasi purple */
+body::before{
+  content:"";position:fixed;inset:0;z-index:-3;
+  background:
+    radial-gradient(800px 700px at 90% -10%,rgba(168,85,247,.25),transparent 58%),
+    radial-gradient(700px 600px at -5% 15%,rgba(184,255,60,.12),transparent 55%),
+    radial-gradient(600px 500px at 50% 110%,rgba(255,61,138,.18),transparent 55%),
+    linear-gradient(160deg,var(--bg0) 0%,#1E0D40 60%,#110828 100%);
+}
+/* pola dots halus */
+body::after{
+  content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;opacity:.55;
+  background-image:radial-gradient(rgba(190,140,255,.25) 1px,transparent 1px);
+  background-size:28px 28px;
+  -webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 40%,#000 0%,transparent 100%);
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 40%,#000 0%,transparent 100%);
+}
+
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input{font-family:inherit}
+:focus-visible{outline:3px solid var(--lime);outline-offset:3px;border-radius:8px}
+
+/* ============================================================
+   HEADER — Colorful game HUD (BEDA dari versi 1 yang gelap)
+   ============================================================ */
+.monitor{
+  position:sticky;top:0;z-index:40;
+  display:none;align-items:center;gap:14px;flex-wrap:wrap;
+  padding:10px clamp(12px,3vw,24px);
+  background:linear-gradient(90deg,rgba(26,13,56,.97) 0%,rgba(34,20,80,.95) 100%);
+  border-bottom:3px solid transparent;
+  border-image:linear-gradient(90deg,var(--lime),var(--pink),var(--blue)) 1;
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+}
+body.started .monitor{display:flex}
+
+/* Logo: Lightning bolt pill */
+.monitor__logo{
+  display:flex;align-items:center;gap:8px;
+  padding:5px 12px 5px 8px;border-radius:999px;
+  background:linear-gradient(135deg,var(--lime),var(--limed));
+  color:#0A1E00;font-weight:900;font-size:.8rem;white-space:nowrap;
+  box-shadow:0 0 18px rgba(184,255,60,.45);
+}
+.monitor__logo svg{width:18px;height:18px}
+
+/* Tag nama pemain */
+.patient{
+  display:flex;align-items:center;gap:8px;
+  padding:5px 13px 5px 10px;border-radius:999px;
+  background:rgba(190,140,255,.12);border:1.5px solid var(--line2);
+}
+.patient__dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 9px var(--green);flex:0 0 auto;animation:blink 2.4s infinite}
+@keyframes blink{0%,65%,100%{opacity:1}80%{opacity:.15}}
+.patient__n{font-weight:800;font-size:.8rem;white-space:nowrap;max-width:28vw;overflow:hidden;text-overflow:ellipsis}
+.patient__n span{color:var(--lime)}
+#hudClass{font-family:var(--font-m);font-size:.6rem;color:var(--mut)}
+
+/* Vitals */
+.vitals{display:flex;align-items:center;gap:11px;margin-left:auto;flex-wrap:wrap}
+.vital{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:999px;padding:4px 12px}
+.vital__lbl{font-family:var(--font-m);font-size:.52rem;letter-spacing:.12em;color:var(--mut);text-transform:uppercase}
+.vital__v{font-family:var(--font-m);font-weight:700;font-size:.88rem}
+.hp{display:flex;gap:3px}
+/* Hati lucu — warna pink bukan merah */
+.hp__h{width:18px;height:18px;color:var(--pink);transition:.25s;filter:drop-shadow(0 0 5px rgba(255,61,138,.6))}
+.hp__h.lost{opacity:.18;filter:none;transform:scale(.76)}
+.hp__h.hit{animation:hpHit .45s}
+@keyframes hpHit{0%{transform:scale(1.7)}60%{transform:scale(.7)}100%{transform:scale(.76)}}
+.badgecnt{display:flex;align-items:center;gap:5px;color:var(--gold)}
+.badgecnt svg{width:17px;height:17px;filter:drop-shadow(0 0 5px rgba(255,214,0,.5))}
+
+/* ============================================================
+   TRACK — emoji pill tabs (beda dari lingkaran bernomor versi 1)
+   ============================================================ */
+.track{
+  display:none;align-items:center;gap:6px;flex-wrap:wrap;justify-content:center;
+  padding:10px clamp(10px,3vw,22px);
+  border-bottom:1px solid var(--line);
+  background:rgba(10,4,22,.7);
+  position:sticky;top:57px;z-index:35;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
+body.started .track{display:flex}
+
+/* Tombol tahap dengan emoji */
+.track__s{
+  display:flex;align-items:center;gap:7px;
+  padding:6px 14px;border-radius:999px;
+  font-size:.74rem;font-weight:700;color:var(--mut);
+  border:1.5px solid transparent;transition:.18s;white-space:nowrap;
+  font-family:var(--font-m);
+}
+.track__s .n{font-size:.78rem;line-height:1}
+/* Tidak ada background hitam untuk nomor — cuma emoji */
+.track__s.done{color:rgba(184,255,60,.7);border-color:rgba(184,255,60,.22)}
+.track__s.active{color:#0A1E00;background:var(--lime);border-color:var(--lime);box-shadow:0 0 18px rgba(184,255,60,.5)}
+.track__s.locked{opacity:.38;cursor:not-allowed}
+.track__s.clickable{cursor:pointer}
+.track__s.clickable:hover{color:var(--lime);border-color:rgba(184,255,60,.35);background:rgba(184,255,60,.08)}
+.track__sep{width:6px;height:1px;background:var(--line);flex:0 0 auto}
+
+/* ============================================================
+   VIEWS
+   ============================================================ */
+main{display:block}
+.view{display:none;width:100%;max-width:var(--maxw);margin:0 auto;padding:clamp(20px,4vw,46px) clamp(14px,4vw,28px) 64px;animation:vIn .42s cubic-bezier(.25,.8,.3,1)}
+.view.active{display:block}
+@keyframes vIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+/* Badge label eyebrow — pill berwarna, bukan garis */
+.eyebrow{display:inline-flex;align-items:center;gap:7px;margin-bottom:14px;padding:5px 14px;border-radius:999px;background:rgba(184,255,60,.12);border:1.5px solid rgba(184,255,60,.3);font-family:var(--font-m);font-size:.64rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--lime)}
+.eyebrow svg{width:14px;height:14px}
+
+h1.title{font-family:var(--font-d);font-weight:900;font-size:clamp(1.9rem,5.2vw,3.1rem);line-height:1.04;letter-spacing:-.02em}
+h2.title{font-family:var(--font-d);font-weight:800;font-size:clamp(1.4rem,3.8vw,2rem);line-height:1.1}
+.lead{color:var(--dim);font-size:clamp(.95rem,2.2vw,1.1rem);max-width:60ch}
+
+/* ============================================================
+   TOMBOL — chunky, bold, playful
+   ============================================================ */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:13px 24px;border-radius:999px;font-weight:800;font-size:.94rem;
+  font-family:var(--font-d);transition:transform .12s,box-shadow .16s,filter .16s;
+  border:2px solid transparent;letter-spacing:.01em;
+}
+.btn:active{transform:scale(.97) translateY(1px)}
+/* Primary — lime gradient */
+.btn--primary{
+  background:linear-gradient(135deg,var(--lime),var(--limed));
+  color:#0A1E00;border-color:var(--limed);
+  box-shadow:0 8px 24px -8px rgba(184,255,60,.5);
+}
+.btn--primary:hover{box-shadow:0 12px 30px -8px rgba(184,255,60,.7);filter:brightness(1.05)}
+/* Ghost */
+.btn--ghost{background:rgba(190,140,255,.1);border-color:var(--line2);color:var(--text)}
+.btn--ghost:hover{background:rgba(190,140,255,.18)}
+/* Gold */
+.btn--gold{background:linear-gradient(135deg,#FFE566,var(--gold));color:#2A1600;border-color:#D9A800;box-shadow:0 8px 24px -8px rgba(255,214,0,.5)}
+.btn svg{width:17px;height:17px}
+.btn:disabled{opacity:.38;cursor:not-allowed;box-shadow:none;filter:none}
+.navbtns{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
+
+/* Panel kaca ungu */
+.glass{
+  background:rgba(255,255,255,.04);
+  border:1.5px solid var(--line);
+  border-radius:var(--r-lg);
+  padding:clamp(16px,2.8vw,26px);
+  box-shadow:var(--shadow);
+}
+/* Kartu putih terang */
+.paper{background:#F5F0FF;color:#14063A;border-radius:var(--r-lg);padding:clamp(18px,3.2vw,30px);box-shadow:var(--shadow);border:1.5px solid rgba(168,85,247,.18)}
+.paper h3{font-family:var(--font-d);font-weight:800;color:#14063A;font-size:1.12rem;margin-bottom:6px}
+
+/* ============================================================
+   SPLASH — partikel fisika melayang (beda dari EKG versi 1)
+   ============================================================ */
+#view-splash{display:none;min-height:100vh;padding-top:clamp(22px,6vh,60px);position:relative;overflow:hidden}
+#view-splash.active{display:flex;flex-direction:column;align-items:center;text-align:center;justify-content:center}
+
+/* Dekorasi latar: bentuk fisika melayang */
+.phys-bg{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.phys-bg span{position:absolute;display:block;opacity:0;animation:floatUp linear infinite}
+@keyframes floatUp{0%{opacity:0;transform:translateY(0) rotate(0deg) scale(.6)}15%{opacity:.7}85%{opacity:.5}100%{opacity:0;transform:translateY(-110vh) rotate(360deg) scale(1.2)}}
+
+/* Ikon besar ? */
+.splash__bolt{
+  width:100px;height:100px;border-radius:28px;margin:0 auto 20px;
+  display:grid;place-items:center;position:relative;z-index:1;
+  background:linear-gradient(135deg,var(--lime) 0%,#5CF000 60%,#B8FF3C 100%);
+  box-shadow:0 0 0 10px rgba(184,255,60,.12),0 28px 56px -16px rgba(184,255,60,.65);
+  animation:boltPulse 3s ease-in-out infinite;color:#0A1E00;
+}
+.splash__bolt svg{width:60px;height:60px}
+@keyframes boltPulse{0%,100%{box-shadow:0 0 0 10px rgba(184,255,60,.12),0 28px 56px -16px rgba(184,255,60,.65)}50%{box-shadow:0 0 0 20px rgba(184,255,60,.06),0 32px 62px -14px rgba(184,255,60,.8)}}
+
+.splash__kicker{font-family:var(--font-m);font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;color:var(--lime);margin-bottom:10px;position:relative;z-index:1}
+.splash__title{font-family:var(--font-d);font-weight:900;font-size:clamp(2.3rem,8vw,5rem);line-height:.94;letter-spacing:-.03em;position:relative;z-index:1}
+/* Teks gradient BERBEDA dari versi 1 */
+.splash__title .grad{background:linear-gradient(120deg,var(--lime) 0%,var(--blue) 50%,var(--pink) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.splash__tag{color:var(--dim);font-size:clamp(.96rem,2.3vw,1.1rem);margin:14px auto 0;max-width:44ch;position:relative;z-index:1}
+
+/* Form pendaftaran — bordered lime */
+.enroll{
+  margin:28px auto 0;width:min(440px,94vw);text-align:left;position:relative;z-index:1;
+  background:rgba(26,13,56,.8);
+  border:2px solid rgba(184,255,60,.35);
+  border-radius:var(--r-lg);padding:22px;
+  box-shadow:0 0 0 8px rgba(184,255,60,.04),var(--shadow);
+}
+.enroll__head{font-family:var(--font-m);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--lime);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.enroll__head::before{content:"?";font-size:.9rem}
+.field{margin-bottom:13px}
+.field label{display:block;font-size:.8rem;font-weight:700;color:var(--dim);margin-bottom:6px;font-family:var(--font-m)}
+.field input{
+  width:100%;padding:13px 15px;border-radius:12px;
+  background:rgba(10,4,22,.7);border:2px solid var(--line2);
+  color:var(--text);font-size:1rem;font-weight:600;
+  transition:border .18s,box-shadow .18s;
+}
+.field input::placeholder{color:var(--mut)}
+.field input:focus{outline:none;border-color:var(--lime);box-shadow:0 0 0 4px rgba(184,255,60,.14)}
+.enroll .btn{width:100%;margin-top:6px}
+.enroll__err{color:var(--red);font-size:.78rem;min-height:1em;margin-top:4px;font-weight:700}
+.splash__credit{margin-top:24px;font-size:.76rem;color:var(--mut);line-height:1.7;position:relative;z-index:1}
+.splash__credit b{color:var(--dim)}
+
+/* ============================================================
+   PETUNJUK
+   ============================================================ */
+.goal{
+  display:flex;gap:14px;align-items:flex-start;margin-top:18px;
+  background:linear-gradient(135deg,rgba(184,255,60,.1),rgba(56,217,245,.06));
+  border:2px solid rgba(184,255,60,.3);border-radius:var(--r-lg);padding:18px 20px;
+}
+.goal__ic{flex:0 0 auto;width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:rgba(184,255,60,.14);font-size:1.6rem}
+.goal__k{font-family:var(--font-m);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--lime);margin-bottom:5px;font-weight:700}
+.goal__t{font-family:var(--font-d);font-weight:800;font-size:clamp(.98rem,2.5vw,1.22rem);line-height:1.3}
+
+.steps{display:grid;gap:10px;margin-top:22px}
+.step{
+  display:flex;gap:14px;align-items:flex-start;
+  background:rgba(190,140,255,.05);border:1.5px solid var(--line);
+  border-left:4px solid var(--lime);border-radius:var(--r);
+  padding:14px 16px;transition:.16s;
+}
+.step:nth-child(2){border-left-color:var(--pink)}
+.step:nth-child(3){border-left-color:var(--blue)}
+.step:nth-child(4){border-left-color:var(--orange)}
+.step:nth-child(5){border-left-color:var(--teal)}
+.step:hover{background:rgba(190,140,255,.09);border-color:var(--line2)}
+/* Nomor bulat berwarna gradient */
+.step__n{
+  flex:0 0 auto;width:36px;height:36px;border-radius:12px;
+  display:grid;place-items:center;
+  font-family:var(--font-m);font-weight:700;font-size:1rem;
+  background:linear-gradient(135deg,var(--lime),var(--limed));color:#0A1E00;
+  box-shadow:0 4px 12px -4px rgba(184,255,60,.4);
+}
+.step:nth-child(2) .step__n{background:linear-gradient(135deg,var(--pink),#C01860);color:#fff;box-shadow:0 4px 12px -4px rgba(255,61,138,.4)}
+.step:nth-child(3) .step__n{background:linear-gradient(135deg,var(--blue),#1090B0);color:#fff;box-shadow:0 4px 12px -4px rgba(56,217,245,.4)}
+.step:nth-child(4) .step__n{background:linear-gradient(135deg,var(--orange),#C05010);color:#fff}
+.step:nth-child(5) .step__n{background:linear-gradient(135deg,var(--teal),#009060);color:#fff}
+.step__b strong{font-family:var(--font-d);font-weight:800;display:block;margin-bottom:1px;font-size:1rem}
+.step__b span{color:var(--dim);font-size:.88rem}
+
+/* ============================================================
+   MATERI
+   ============================================================ */
+/* Pertanyaan pemantik — gradient pink-orange */
+.pemantik{
+  margin-top:10px;border-radius:var(--r-lg);overflow:hidden;
+  background:linear-gradient(135deg,rgba(255,61,138,.18) 0%,rgba(255,140,66,.14) 50%,rgba(56,217,245,.1) 100%);
+  border:1.5px solid rgba(255,61,138,.25);padding:clamp(20px,3.8vw,32px);
+}
+.pemantik__k{font-family:var(--font-m);font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:11px;display:flex;align-items:center;gap:7px;font-weight:700}
+.pemantik__q{font-family:var(--font-d);font-weight:900;font-size:clamp(1.1rem,3vw,1.5rem);line-height:1.3;max-width:40ch}
+.pemantik__p{color:var(--dim);margin-top:12px;max-width:58ch;font-size:.95rem}
+
+.section-h{display:flex;align-items:center;gap:11px;margin:36px 0 14px}
+.section-h h3{font-family:var(--font-d);font-weight:800;font-size:1.25rem}
+.section-h .pill{font-family:var(--font-m);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;padding:4px 12px;border-radius:999px;background:rgba(168,85,247,.14);border:1.5px solid rgba(168,85,247,.3);color:var(--violet);font-weight:700}
+
+/* Video card — border atas berwarna */
+.videos{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.vcard{background:rgba(255,255,255,.04);border:1.5px solid var(--line);border-top:4px solid var(--pink);border-radius:var(--r-lg);overflow:hidden;transition:.16s}
+.vcard:nth-child(2){border-top-color:var(--lime)}
+.vcard:nth-child(3){border-top-color:var(--blue)}
+.vcard:hover{border-color:var(--line2);transform:translateY(-4px);box-shadow:0 14px 36px -14px rgba(190,140,255,.35)}
+.vframe{position:relative;aspect-ratio:16/9;background:#0A0418}
+.vframe iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vfallback{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:16px;color:var(--dim);font-size:.84rem}
+.vfallback svg{width:28px;height:28px;color:var(--mut)}
+.vcard.offline .vframe iframe{display:none}
+.vcard.offline .vfallback{display:flex}
+.vcard__b{padding:13px 15px}
+.vcard__t{font-family:var(--font-d);font-weight:800;font-size:.92rem}
+.vcard__s{font-size:.72rem;color:var(--mut);margin-top:3px}
+
+/* Kartu sistem — tepi kiri tebal berwarna + rounded besar */
+.sys-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.syscard{border-radius:var(--r-lg);padding:20px;border:1.5px solid var(--line);position:relative;overflow:hidden;background:rgba(255,255,255,.03);transition:.16s}
+.syscard:hover{background:rgba(255,255,255,.055);transform:translateY(-3px)}
+/* Dekorasi pojok kanan bawah (circle besar transparan) */
+.syscard::after{content:"";position:absolute;width:120px;height:120px;border-radius:50%;right:-30px;bottom:-30px;background:color-mix(in srgb,var(--c) 12%,transparent);pointer-events:none}
+.syscard::before{content:"";position:absolute;inset:0 auto 0 0;width:5px;background:var(--c)}
+.syscard__ic{width:50px;height:50px;border-radius:15px;display:grid;place-items:center;margin-bottom:13px;background:color-mix(in srgb,var(--c) 16%,transparent);font-size:1.4rem}
+.syscard__ic img{width:28px;height:28px;object-fit:contain}
+.syscard h4{font-family:var(--font-d);font-weight:800;font-size:1.06rem;margin-bottom:4px}
+.syscard p{font-size:.83rem;color:var(--dim)}
+.syscard__chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:12px}
+.chip{font-size:.7rem;font-weight:700;padding:3px 10px;border-radius:999px;background:color-mix(in srgb,var(--c) 12%,transparent);color:var(--c);border:1.5px solid color-mix(in srgb,var(--c) 26%,transparent)}
+
+/* ============================================================
+   KUIS
+   ============================================================ */
+.quiz-wrap{max-width:680px;margin:0 auto}
+.quiz-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
+/* Progress bar warna lime */
+.quiz-prog{flex:1;height:10px;border-radius:999px;background:rgba(184,255,60,.12);overflow:hidden;border:1px solid rgba(184,255,60,.2)}
+.quiz-prog__bar{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--lime),var(--blue));transition:width .4s}
+.quiz-count{font-family:var(--font-m);font-size:.76rem;color:var(--dim);white-space:nowrap;font-weight:700}
+
+/* Kotak soal — warna terang tapi ungu muda, bukan putih/biru */
+.qbox{background:linear-gradient(135deg,#F5F0FF,#EDE6FF);color:#14063A;border-radius:var(--r-lg);padding:clamp(20px,3.4vw,32px);box-shadow:var(--shadow);border:2px solid rgba(168,85,247,.2)}
+/* Badge level — pill warna violet */
+.qlevel{display:inline-flex;align-items:center;gap:5px;font-family:var(--font-m);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:var(--violet);padding:4px 12px;border-radius:999px;margin-bottom:13px;font-weight:700;box-shadow:0 4px 12px -4px rgba(168,85,247,.5)}
+.qtext{font-family:var(--font-d);font-weight:800;font-size:clamp(1.05rem,2.8vw,1.35rem);line-height:1.35;color:#14063A;margin-bottom:18px}
+
+/* Opsi jawaban — pill shape besar */
+.opts{display:grid;gap:10px}
+.opt{
+  display:flex;align-items:center;gap:12px;text-align:left;width:100%;
+  padding:13px 18px;border-radius:var(--r);
+  border:2px solid rgba(168,85,247,.2);background:#fff;
+  font-size:.97rem;color:#14063A;font-weight:700;
+  transition:.14s;font-family:var(--font-d);
+}
+.opt:hover:not(.locked){border-color:var(--violet);background:#F0EAFF}
+/* Tombol key — rounded square */
+.opt__key{flex:0 0 auto;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:rgba(168,85,247,.12);color:var(--violet);font-family:var(--font-m);font-weight:700;font-size:.88rem;transition:.14s}
+.opt.sel{border-color:var(--violet);background:#F0EAFF}
+.opt.sel .opt__key{background:var(--violet);color:#fff}
+.opt.correct{border-color:#00C060;background:#E6FAF0}
+.opt.correct .opt__key{background:#00C060;color:#fff}
+.opt.wrong{border-color:var(--red);background:#FEE9EF}
+.opt.wrong .opt__key{background:var(--red);color:#fff}
+.opt.locked{cursor:default}
+.qbox .navbtns{margin-top:20px}
+.qbox .btn--ghost{background:#EDE6FF;border-color:rgba(168,85,247,.25);color:#4A2A80}
+.qfeedback{margin-top:16px;padding:12px 15px;border-radius:var(--r);font-size:.9rem;font-weight:700;display:none}
+.qfeedback.show{display:block;animation:vIn .3s}
+.qfeedback.ok{background:#E6FAF0;color:#0A6B38;border:2px solid #A0E8C4}
+.qfeedback.no{background:#FEE9EF;color:#9A1040;border:2px solid #F8B8D0}
+
+/* Hasil kuis */
+.result{text-align:center;max-width:540px;margin:0 auto}
+.result__ring{width:160px;height:160px;margin:4px auto 16px;border-radius:50%;display:grid;place-items:center;position:relative;background:conic-gradient(var(--rc) calc(var(--p)*1%),rgba(255,255,255,.08) 0)}
+.result__ring::after{content:"";position:absolute;inset:11px;border-radius:50%;background:var(--bg1)}
+.result__score{position:relative;z-index:2;font-family:var(--font-m);font-weight:700;font-size:2.4rem;line-height:1;color:var(--rc)}
+.result__score small{display:block;font-size:.68rem;letter-spacing:.16em;color:var(--mut);margin-top:5px}
+.result__msg{font-family:var(--font-d);font-weight:900;font-size:1.4rem;margin-bottom:5px}
+.result__detail{color:var(--dim)}
+
+/* ============================================================
+   GAME — papan lab dengan node berbentuk rounded-square
+   ============================================================ */
+.game-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+/* Badge dunia — pill dengan gradient */
+.world-badge{display:inline-flex;align-items:center;gap:8px;padding:7px 14px 7px 8px;border-radius:999px;border:2px solid color-mix(in srgb,var(--c) 40%,transparent);background:color-mix(in srgb,var(--c) 12%,rgba(18,8,42,.8));color:var(--c);font-weight:800;font-size:.84rem}
+.world-badge__ic{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 22%,transparent)}
+.world-badge__ic img{width:18px;height:18px;object-fit:contain}
+.world-prog{font-family:var(--font-m);font-size:.78rem;color:var(--dim);margin-left:auto;font-weight:700}
+/* Dot progress */
+.world-dots{display:flex;gap:6px}
+.world-dot{width:12px;height:12px;border-radius:4px;background:rgba(255,255,255,.1);transition:.3s}
+.world-dot.done{background:var(--c);box-shadow:0 0 10px var(--c);border-radius:4px}
+.world-dot.now{border-radius:4px;box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 35%,transparent)}
+
+.game{display:grid;grid-template-columns:minmax(0,1fr) minmax(290px,400px);gap:16px;align-items:stretch}
+.board{position:relative;border-radius:var(--r-lg);overflow:hidden;min-height:420px;border:2px solid var(--line);box-shadow:var(--shadow);display:grid;place-items:center;padding:14px}
+.board__bg{position:absolute;inset:0;object-fit:cover;width:100%;height:100%;opacity:.6}
+
+/* NODE — rounded-square (beda dari circle versi 1) */
+.node{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:5px}
+.node__btn{
+  width:56px;height:56px;border-radius:14px; /* BEDA: square bukan circle */
+  display:grid;place-items:center;position:relative;
+  background:rgba(8,4,20,.88);border:2px solid rgba(255,255,255,.15);
+  color:var(--mut);transition:transform .16s,box-shadow .18s,border-color .18s;
+}
+.node__btn img{width:36px;height:36px;object-fit:contain;border-radius:8px;display:block}
+.node__label{font-size:.66rem;font-weight:800;color:var(--dim);background:rgba(8,4,20,.85);padding:2px 8px;border-radius:999px;white-space:nowrap;border:1px solid var(--line);font-family:var(--font-m)}
+.node--locked .node__btn{filter:saturate(.2);opacity:.6}
+/* Aktif: lime border + animasi kedip BERBEDA dari versi 1 */
+.node--active .node__btn{
+  border-color:var(--lime);border-width:3px;
+  background:rgba(184,255,60,.12);
+  box-shadow:0 0 0 0 rgba(184,255,60,.5);
+  animation:nodeSquarePulse 1.6s infinite;cursor:pointer;
+}
+.node--active .node__label{color:var(--lime);border-color:rgba(184,255,60,.38)}
+.node--active:hover .node__btn{transform:scale(1.1) rotate(3deg)}
+@keyframes nodeSquarePulse{0%{box-shadow:0 0 0 0 rgba(184,255,60,.5)}70%{box-shadow:0 0 0 14px transparent}100%{box-shadow:0 0 0 0 transparent}}
+.node--done .node__btn{border-color:var(--lime);border-width:3px;background:rgba(184,255,60,.18);box-shadow:0 0 16px rgba(184,255,60,.45)}
+.node__check{position:absolute;right:-5px;top:-5px;width:20px;height:20px;border-radius:6px;background:var(--lime);color:#0A1E00;display:grid;place-items:center;border:2px solid var(--bg0)}
+.node__check svg{width:11px;height:11px}
+
+/* Panel soal game */
+.gpanel{border-radius:var(--r-lg);border:1.5px solid var(--line);box-shadow:var(--shadow);background:rgba(26,13,56,.9);padding:clamp(16px,2.4vw,22px);display:flex;flex-direction:column;backdrop-filter:blur(10px)}
+.gpanel__k{font-family:var(--font-m);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--c);margin-bottom:8px;display:flex;align-items:center;gap:7px;font-weight:700}
+.gpanel__title{font-family:var(--font-d);font-weight:900;font-size:1.1rem;line-height:1.25;margin-bottom:5px}
+.gpanel__intro{color:var(--dim);font-size:.9rem}
+.gpanel__hint{margin-top:auto;font-size:.78rem;color:var(--mut);padding-top:14px;display:flex;align-items:center;gap:7px}
+.gpanel__hint svg{width:14px;height:14px}
+.qg-text{font-family:var(--font-d);font-weight:800;font-size:1.02rem;line-height:1.4;margin:5px 0 13px}
+
+/* Opsi game — lebih besar, rounded-square */
+.qg-opts{display:grid;gap:8px}
+.qg-opt{
+  display:flex;align-items:center;gap:10px;text-align:left;width:100%;
+  padding:12px 14px;border-radius:12px;
+  border:2px solid var(--line);background:rgba(255,255,255,.04);
+  color:var(--text);font-size:.9rem;font-weight:700;transition:.13s;
+  font-family:var(--font-d);
+}
+.qg-opt:hover:not(.locked){border-color:var(--lime);background:rgba(184,255,60,.1)}
+.qg-opt__k{flex:0 0 auto;width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:rgba(184,255,60,.1);font-family:var(--font-m);font-weight:700;font-size:.8rem;color:var(--lime)}
+.qg-opt.sel{border-color:var(--lime);background:rgba(184,255,60,.12)}
+.qg-opt.sel .qg-opt__k{background:var(--lime);color:#0A1E00}
+.qg-opt.correct{border-color:var(--green);background:rgba(0,230,118,.1)}
+.qg-opt.correct .qg-opt__k{background:var(--green);color:#003820}
+.qg-opt.wrong{border-color:var(--red);background:rgba(255,68,102,.1)}
+.qg-opt.wrong .qg-opt__k{background:var(--red);color:#fff}
+.qg-opt.locked{cursor:default}
+.qg-fb{margin-top:11px;padding:11px 14px;border-radius:12px;font-size:.85rem;font-weight:700;line-height:1.5}
+.qg-fb.ok{background:rgba(0,230,118,.12);color:#9DFFD2;border:2px solid rgba(0,230,118,.3)}
+.qg-fb.no{background:rgba(255,68,102,.12);color:#FFAABB;border:2px solid rgba(255,68,102,.3)}
+.gpanel .btn{margin-top:14px}
+.gpanel .btn--sys{background:linear-gradient(135deg,var(--c),color-mix(in srgb,var(--c) 55%,#000));color:#fff;border:2px solid color-mix(in srgb,var(--c) 60%,transparent)}
+
+/* Reward & gameover */
+.reward{text-align:center}
+.reward__medal{width:110px;height:110px;margin:4px auto 12px;animation:pop .55s cubic-bezier(.2,1.4,.4,1)}
+@keyframes pop{0%{transform:scale(0) rotate(-25deg);opacity:0}60%{transform:scale(1.14) rotate(6deg)}100%{transform:scale(1) rotate(0);opacity:1}}
+.reward__t{font-family:var(--font-d);font-weight:900;font-size:1.45rem}
+.reward__s{color:var(--dim);margin-top:6px}
+.gameover{text-align:center;max-width:500px;margin:0 auto}
+.gameover__ic{width:90px;height:90px;margin:4px auto 14px;border-radius:22px;display:grid;place-items:center;background:rgba(255,68,102,.12);color:var(--red);border:2px solid rgba(255,68,102,.3);font-size:2.5rem}
+
+/* ============================================================
+   LAB MAYA — grid kartu gambar (beda dari list versi 1)
+   ============================================================ */
+/* Tab berwarna berbeda tiap topik */
+.lab-tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
+.lab-tab{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:9px 16px;border-radius:999px;
+  border:2px solid var(--line);background:rgba(255,255,255,.04);
+  color:var(--dim);font-weight:800;font-size:.84rem;transition:.16s;
+  font-family:var(--font-d);
+}
+.lab-tab img{width:17px;height:17px;object-fit:contain}
+.lab-tab:hover{color:var(--text);border-color:var(--line2)}
+.lab-tab.active{color:#0A1E00;background:var(--c);border-color:var(--c);box-shadow:0 6px 20px -6px color-mix(in srgb,var(--c) 60%,transparent)}
+
+.lab{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,420px);gap:16px;align-items:stretch}
+.lab-stage{
+  position:relative;border-radius:var(--r-lg);min-height:460px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:20px;border:1.5px solid var(--line);box-shadow:var(--shadow);
+  background:linear-gradient(180deg,rgba(34,20,80,.8),rgba(18,8,42,.9));
+}
+/* Efek scan — warna sesuai tab */
+.lab-scan{position:absolute;left:0;right:0;height:80px;pointer-events:none;background:linear-gradient(180deg,transparent,color-mix(in srgb,var(--c) 18%,transparent),transparent);animation:scanAnim 4s linear infinite;opacity:.6}
+@keyframes scanAnim{0%{top:-20%}100%{top:100%}}
+
+/* Grid kartu eksperimen 2×N */
+.lab-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:min(380px,82vw)}
+.lab-item{
+  border:2px solid color-mix(in srgb,var(--c) 30%,transparent);
+  border-radius:var(--r);background:color-mix(in srgb,var(--c) 8%,rgba(18,8,42,.85));
+  cursor:pointer;transition:.16s;
+  display:flex;flex-direction:column;align-items:center;
+  padding:12px 8px;gap:7px;
+}
+.lab-item:hover{border-color:var(--c);transform:scale(1.05);box-shadow:0 8px 20px -8px color-mix(in srgb,var(--c) 45%,transparent)}
+.lab-item.active{border-color:var(--c);background:color-mix(in srgb,var(--c) 16%,rgba(18,8,42,.9));box-shadow:0 0 0 4px color-mix(in srgb,var(--c) 22%,transparent),0 8px 24px -8px color-mix(in srgb,var(--c) 45%,transparent)}
+.lab-item img{width:88px;height:88px;object-fit:contain;display:block}
+.lab-item__lbl{font-size:.7rem;font-weight:800;color:var(--c);text-align:center;white-space:nowrap;font-family:var(--font-m)}
+
+/* Panel info lab — warna berbeda versi 1 (ungu hangat) */
+.lab-info{border-radius:var(--r-lg);border:1.5px solid var(--line);box-shadow:var(--shadow);background:rgba(26,13,56,.92);padding:clamp(16px,2.4vw,24px);display:flex;flex-direction:column;backdrop-filter:blur(10px)}
+.lab-info__art{width:152px;height:152px;border-radius:22px;margin:0 auto 16px;display:grid;place-items:center;background:linear-gradient(135deg,color-mix(in srgb,var(--c) 12%,rgba(18,8,42,.8)),rgba(18,8,42,.9));border:2px solid color-mix(in srgb,var(--c) 34%,transparent);box-shadow:0 12px 32px -10px color-mix(in srgb,var(--c) 45%,transparent);overflow:hidden}
+.lab-info__art img{width:128px;height:128px;object-fit:contain}
+.lab-info__k{font-family:var(--font-m);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--c);margin-bottom:5px;text-align:center;font-weight:700}
+.lab-info__name{font-family:var(--font-d);font-weight:900;font-size:1.5rem;line-height:1.1;margin-bottom:13px;text-align:center}
+.lab-info__row{margin-bottom:14px}
+/* Label info dengan icon emoji */
+.lab-info__lbl{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--mut);margin-bottom:4px;display:flex;align-items:center;gap:6px;font-family:var(--font-m)}
+.lab-info__lbl svg{width:14px;height:14px;color:var(--c)}
+.lab-info__txt{color:var(--text);font-size:.93rem;line-height:1.65}
+/* Fakta box — gradient line di atas */
+.lab-info__fact{background:color-mix(in srgb,var(--c) 8%,transparent);border:2px solid color-mix(in srgb,var(--c) 24%,transparent);border-radius:var(--r);padding:13px 14px;margin-top:auto}
+.lab-info__empty{margin:auto;text-align:center;color:var(--mut);font-size:.92rem;max-width:22ch;font-family:var(--font-d);font-weight:700}
+.lab-info__empty div{font-size:2.5rem;margin-bottom:10px;opacity:.6}
+
+/* ============================================================
+   SERTIFIKAT — tema warm gold/purple (beda dari teal/white v1)
+   ============================================================ */
+.finale{text-align:center}
+.cert{
+  position:relative;max-width:740px;margin:10px auto 0;border-radius:var(--r-lg);overflow:hidden;
+  background:linear-gradient(145deg,#FFF9E6,#FFF4F9,#F0EDFF);
+  color:#1A0630;border:2px solid rgba(255,214,0,.4);
+  box-shadow:0 28px 65px -22px rgba(0,0,0,.75);
+  padding:clamp(24px,5vw,46px);
+}
+/* Border dalam */
+.cert::before{content:"";position:absolute;inset:12px;border:2px solid rgba(168,85,247,.2);border-radius:12px;pointer-events:none}
+.cert::after{content:"";position:absolute;inset:19px;border:1px solid rgba(255,214,0,.35);border-radius:8px;pointer-events:none}
+/* Segel — gradient pink-gold (beda dari gold v1) */
+.cert__seal{width:92px;height:92px;margin:0 auto 13px;border-radius:50%;display:grid;place-items:center;font-size:2.8rem;background:linear-gradient(135deg,#FFE566,var(--gold) 55%,#E0A800);box-shadow:0 10px 28px -8px rgba(255,214,0,.65);animation:pop .7s cubic-bezier(.2,1.4,.4,1)}
+.cert__k{font-family:var(--font-m);letter-spacing:.28em;text-transform:uppercase;font-size:.66rem;color:var(--violet);font-weight:700}
+.cert__title{font-family:var(--font-d);font-weight:900;font-size:clamp(1.7rem,4.8vw,2.7rem);color:#1A0630;line-height:1.04;margin:7px 0 3px}
+.cert__sub{color:#5A4080;font-size:.92rem;font-weight:600}
+.cert__name{font-family:var(--font-d);font-weight:900;font-size:clamp(1.4rem,4vw,2.2rem);color:var(--violet);margin:15px 0 3px;line-height:1.1}
+.cert__line{width:200px;max-width:68%;height:3px;background:linear-gradient(90deg,transparent,var(--violet),transparent);margin:5px auto 13px;border-radius:2px}
+.cert__desc{color:#5A4080;max-width:52ch;margin:0 auto 16px;font-size:.92rem;font-weight:600}
+.cert__badges{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:16px 0 6px}
+.cert-badge{display:flex;flex-direction:column;align-items:center;gap:6px;width:100px}
+.cert-badge__m{width:56px;height:56px}
+.cert-badge__t{font-size:.7rem;font-weight:800;color:#1A0630;line-height:1.2;text-align:center;font-family:var(--font-d)}
+.cert__meta{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-top:20px;padding-top:16px;border-top:2px dashed rgba(168,85,247,.25);text-align:left}
+.cert__meta div{font-size:.72rem;color:#7A5090;font-family:var(--font-m)}
+.cert__meta b{display:block;color:#1A0630;font-family:var(--font-d);font-size:.84rem;margin-bottom:1px}
+
+/* KONFETI */
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:60;overflow:hidden}
+.confetti i{position:absolute;top:-12px;width:9px;height:14px;opacity:.9;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(108vh) rotate(720deg);opacity:.35}}
+
+/* FOOTER */
+.foot{display:none;text-align:center;padding:24px 18px 36px;color:var(--mut);font-size:.76rem;line-height:1.7;border-top:1px solid var(--line)}
+body.started .foot{display:block}
+.foot b{color:var(--dim)}
+.foot__brand{display:inline-flex;align-items:center;gap:7px;color:var(--lime);font-family:var(--font-d);font-weight:800;font-size:.82rem;margin-bottom:5px}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media(max-width:860px){.game,.lab{grid-template-columns:1fr}.board,.lab-stage{min-height:320px}.lab-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:540px){.vitals{gap:7px;width:100%;margin-left:0;justify-content:space-between}.track__sep{display:none}.track__s{padding:5px 9px;font-size:.68rem}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}.phys-bg{display:none}.lab-scan{display:none}}
+@media print{body::before,body::after,.monitor,.track,.foot,.navbtns,.confetti{display:none!important}body{background:#fff}.view{padding:0}.cert{box-shadow:none;border:1px solid #ccc}}
+</style>
+</head>
+<body>
+
+<!-- Partikel latar — ikon fisika melayang -->
+<div class="phys-bg" id="physBg" aria-hidden="true"></div>
+
+<!-- ============================================================
+     HEADER — Game HUD berwarna
+     ============================================================ -->
+<header class="monitor">
+  <div class="monitor__logo">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 3L4 14h6l-1 7 9-11h-6l1-7Z"/></svg>
+    Murid Bergaya
+  </div>
+  <div class="patient">
+    <span class="patient__dot"></span>
+    <div>
+      <div class="patient__n">? <span id="hudName">—</span></div>
+      <div id="hudClass">Kelas —</div>
+    </div>
+  </div>
+  <div class="vitals" id="vitals" hidden>
+    <div class="vital">
+      <span class="vital__lbl">Nyawa</span>
+      <span class="hp" id="hp" aria-label="Nyawa tersisa"></span>
+    </div>
+    <div class="vital">
+      <span class="vital__lbl">Skor</span>
+      <span class="vital__v" style="color:var(--lime)" id="hudScore">0</span>
+    </div>
+    <div class="vital">
+      <span class="vital__lbl">Lencana</span>
+      <span class="badgecnt">
+        <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="9" r="5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M9 13l-1.5 6 4.5-2.6 4.5 2.6L15 13" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+        <span class="vital__v" id="hudBadges">0</span>
+      </span>
+    </div>
+  </div>
+</header>
+
+<!-- Track navigasi — emoji pills -->
+<nav class="track" id="track" aria-label="Tahapan pembelajaran"></nav>
+
+<main>
+
+<!-- ============================================================
+     SPLASH — Partikel fisika + lightning bolt
+     ============================================================ -->
+<section class="view active" id="view-splash" aria-label="Halaman awal">
+  <div class="splash__bolt" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 3L4 14h6l-1 7 9-11h-6l1-7Z"/></svg>
+  </div>
+  <div class="splash__kicker">Media Pembelajaran IPA · SMP Kelas 8</div>
+  <h1 class="splash__title">
+    <span class="grad">MURID</span><br>
+    <span class="grad">BERGAYA</span>
+  </h1>
+  <p class="splash__tag">Eksplorasi gaya-gaya seru di sekitarmu, taklukkan Hukum Newton, dan buktikan kamu adalah Fisikawan Muda terkeren! ?</p>
+
+  <div class="enroll">
+    <div class="enroll__head">Daftar Sekarang, Fisikawan!</div>
+    <div class="field">
+      <label for="inName">Nama Kamu</label>
+      <input id="inName" type="text" placeholder="Siapa namamu?" autocomplete="off" maxlength="40"/>
+    </div>
+    <div class="field">
+      <label for="inClass">Kelas</label>
+      <input id="inClass" type="text" placeholder="Contoh: 8A" autocomplete="off" maxlength="16"/>
+    </div>
+    <div class="enroll__err" id="enrollErr" role="alert"></div>
+    <button class="btn btn--primary" id="startBtn">
+      Ayo Mulai! ?
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </button>
+  </div>
+
+  <div class="splash__credit">
+    Dibuat dengan ?? oleh <b>Salehuddin</b> — Guru SMP Negeri Sinombayuga<br>
+    Sumber materi: Ruang Murid &amp; Buku IPA SMP Kelas 8
+  </div>
+</section>
+
+<!-- ============================================================
+     PETUNJUK
+     ============================================================ -->
+<section class="view" id="view-petunjuk" aria-label="Petunjuk">
+  <div class="eyebrow">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+    Tahap 1 — Baca Dulu Ya!
+  </div>
+  <h1 class="title">Petunjuk &amp; Tujuan ??</h1>
+  <p class="lead" style="margin-top:12px">Sebelum mulai seru-seruan, kenali dulu aturan mainnya!</p>
+
+  <div class="goal">
+    <div class="goal__ic">??</div>
+    <div>
+      <div class="goal__k">Tujuan Pembelajaran</div>
+      <div class="goal__t">Murid dapat menyebutkan jenis-jenis gaya dan menjelaskan pengaruh gaya terhadap gerak benda.</div>
+    </div>
+  </div>
+
+  <div class="steps" id="steps"></div>
+
+  <div class="navbtns">
+    <button class="btn btn--primary" data-go="materi">
+      Lanjut ke Materi ??
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MATERI
+     ============================================================ -->
+<section class="view" id="view-materi" aria-label="Materi">
+  <div class="eyebrow">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2Z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7Z"/></svg>
+    Tahap 2 — Belajar Yuk!
+  </div>
+  <h1 class="title">Gaya &amp; Hukum Newton ??</h1>
+
+  <div class="pemantik" style="margin-top:18px">
+    <div class="pemantik__k">?? Pertanyaan Pemantik</div>
+    <div class="pemantik__q">Kenapa kamu harus mendorong meja supaya bergerak? Kenapa mangga jatuh ke bawah, bukan ke atas? ??</div>
+    <p class="pemantik__p">Jawabannya adalah <b style="color:var(--text)">GAYA</b> — tarikan atau dorongan yang mengubah gerak benda. Isaac Newton bahkan nulis 3 hukum kerennya gara-gara lihat apel jatuh! Yuk pelajari dan buktikan.</p>
+  </div>
+
+  <div class="section-h"><h3>?? Tonton Dulu!</h3><span class="pill">Video Pembelajaran</span></div>
+  <div class="videos" id="videos"></div>
+  <p style="color:var(--mut);font-size:.76rem;margin-top:10px">?? Video perlu internet. Klik "Tonton di YouTube" kalau video tidak muncul.</p>
+
+  <div class="section-h"><h3>?? Tiga Topik yang Bakal Kamu Pelajari</h3></div>
+  <div class="sys-grid" id="sysGrid"></div>
+
+  <div class="navbtns">
+    <button class="btn btn--ghost" data-go="petunjuk">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+      Kembali
+    </button>
+    <button class="btn btn--primary" data-go="kuis">
+      Ke Kuis Kesiapan ??
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </button>
+  </div>
+</section>
+
+<!-- ============================================================
+     KUIS
+     ============================================================ -->
+<section class="view" id="view-kuis" aria-label="Kuis kesiapan">
+  <div class="eyebrow">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V18h6v-1.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2Z"/></svg>
+    Tahap 3 — Uji Dirimu!
+  </div>
+  <h1 class="title">Kuis Kesiapan ??</h1>
+  <p class="lead" style="margin-top:11px">5 soal pilihan ganda. Nilai minimal <b style="color:var(--lime)">75</b> untuk buka Petualangan Game!</p>
+  <div class="quiz-wrap" id="quizWrap" style="margin-top:22px"></div>
+</section>
+
+<!-- ============================================================
+     GAME
+     ============================================================ -->
+<section class="view" id="view-game" aria-label="Petualangan game">
+  <div class="eyebrow">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5 4 4M9.4 9.4 5 5m14 14-4-4M9.4 14.6 5 19M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z"/></svg>
+    Tahap 4 — Main Game!
+  </div>
+  <h1 class="title">Laboratorium Gaya ?</h1>
+  <p class="lead" style="margin-top:11px">Ketuk eksperimen yang berkedip, jawab pertanyaannya, dan kumpulkan semua lencana ahli!</p>
+  <div id="gameRoot" style="margin-top:22px"></div>
+</section>
+
+<!-- ============================================================
+     LAB MAYA
+     ============================================================ -->
+<section class="view" id="view-lab" aria-label="Lab maya">
+  <div class="eyebrow">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3v6l-5 8a2 2 0 0 0 1.8 3h12.4A2 2 0 0 0 20 17l-5-8V3"/><path d="M8 3h8"/></svg>
+    Tahap 5 — Eksplorasi!
+  </div>
+  <h1 class="title">Lab Maya Gaya ??</h1>
+  <p class="lead" style="margin-top:11px">Pilih topik, klik gambar eksperimen, dan baca fakta seru di balik setiap gaya!</p>
+  <div id="labRoot" style="margin-top:22px"></div>
+  <div class="navbtns">
+    <button class="btn btn--ghost" data-go="game">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+      Balik ke Game
+    </button>
+    <button class="btn btn--gold" id="toCertBtn" data-go="selesai">
+      Lihat Sertifikatku ??
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </button>
+  </div>
+</section>
+
+<!-- ============================================================
+     SERTIFIKAT
+     ============================================================ -->
+<section class="view" id="view-selesai" aria-label="Sertifikat">
+  <div class="finale" id="finaleRoot"></div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="foot__brand">? Murid Bergaya</div>
+  Dikembangkan oleh <b>Salehuddin</b> — Guru SMP Negeri Sinombayuga<br>
+  Sumber: Ruang Murid &amp; Buku IPA SMP Kelas 8
+</footer>
+
+<script>
+/* =========================================================
+   DATA — IDENTIK dengan versi sebelumnya
+   ========================================================= */
+const VIDEOS = [
+  {id:'FrmZD0J0bco', t:'Gaya &amp; Hukum Newton — IPA Kelas 8 SMP'},
+  {id:'W4xISwlChQE', t:'Materi Gaya &amp; Hukum Newton Kelas 8'},
+  {id:'HuTqL_OwuE0', t:'Gaya &amp; Hukum Newton SMP (Animasi)'}
+];
+const KUIS = [
+  {lvl:'C1', q:'Gaya adalah …', opt:['Energi yang disimpan benda','Tarikan atau dorongan yang memengaruhi benda','Kecepatan perubahan posisi benda','Massa dikali kecepatan'], a:1},
+  {lvl:'C1', q:'Satuan gaya dalam Sistem Internasional (SI) adalah ….', opt:['Joule (J)','Watt (W)','Newton (N)','Pascal (Pa)'], a:2},
+  {lvl:'C2', q:'Sebuah buku terletak diam di atas meja. Ini adalah contoh penerapan ….', opt:['Hukum Newton III','Hukum Newton II','Hukum Newton I','Hukum Archimedes'], a:2},
+  {lvl:'C2', q:'Benda bermassa 5 kg diberi gaya 20 N. Percepatan yang dialami benda adalah …. (F = m × a)', opt:['100 m/s²','0,25 m/s²','4 m/s²','25 m/s²'], a:2},
+  {lvl:'C2', q:'Gaya gesek MENGUNTUNGKAN terdapat pada ….', opt:['Rantai sepeda yang aus karena gesekan','Gesekan antara piston dan dinding mesin','Gesekan ban mobil dengan aspal saat mengerem','Gesekan antara bantalan laker dengan as roda'], a:2}
+];
+const KUIS_LULUS = 75;
+
+const SVG_SRC = k => `assets-gaya/${k}.svg`;
+const imgTag  = (k, sz='36px') => `<img src="${SVG_SRC(k)}" alt="${k}" style="width:${sz};height:${sz};object-fit:contain;display:block">`;
+
+const DUNIA = [
+  {id:'gesek', nama:'Gaya Gesek', warna:'#FF8040', icon:'gesek', desc:'Selidiki gaya yang menghambat gerak benda.',
+   badge:'Ahli Gaya Gesek',
+   organ:[
+    {key:'gesek', nama:'Gaya Gesek', x:30, y:28, q:'Gaya gesek selalu berlawanan arah dengan gerak benda. Ketika balok didorong ke kanan, gaya gesek menuju ke ….', opt:['Kanan','Atas','Kiri','Bawah'], a:2, ex:'Gaya gesek selalu berlawanan arah dengan gerak benda.'},
+    {key:'gesek', nama:'Gaya Statis', x:65, y:22, q:'Gaya gesek yang bekerja saat benda BELUM bergerak disebut gaya gesek ….', opt:['Kinetis','Statis','Apung','Pegas'], a:1, ex:'Gaya gesek statis terjadi sebelum benda mulai bergerak.'},
+    {key:'gesek', nama:'Gaya Kinetis', x:32, y:62, q:'Gaya gesek yang bekerja saat benda SEDANG bergerak disebut gaya gesek ….', opt:['Statis','Potensial','Kinetis','Normal'], a:2, ex:'Gaya gesek kinetis lebih kecil dari gaya gesek statis maksimum.'},
+    {key:'gesek', nama:'Permukaan', x:68, y:60, q:'Semakin kasar permukaan benda, gaya gesek yang dihasilkan ….', opt:['Semakin kecil','Tetap sama','Semakin besar','Tidak menentu'], a:2, ex:'Kekasaran permukaan memengaruhi besar gaya gesek.'}
+   ]},
+  {id:'gravitasi', nama:'Gaya Gravitasi', warna:'#00D4AA', icon:'gravitasi', desc:'Telusuri gaya tarik bumi yang membuat benda jatuh.',
+   badge:'Ahli Gaya Gravitasi',
+   organ:[
+    {key:'gravitasi', nama:'Gravitasi', x:50, y:20, q:'Gaya yang menyebabkan semua benda jatuh ke arah bumi disebut gaya ….', opt:['Pegas','Magnet','Gravitasi','Gesek'], a:2, ex:'Gaya gravitasi bumi menarik semua benda menuju pusat bumi.'},
+    {key:'gravitasi', nama:'Percepatan g', x:28, y:52, q:'Nilai percepatan gravitasi bumi rata-rata adalah ….', opt:['5 m/s²','9,8 m/s² ˜ 10 m/s²','15 m/s²','100 m/s²'], a:1, ex:'Percepatan gravitasi bumi g ˜ 10 m/s² (dibulatkan untuk SMP).'},
+    {key:'gravitasi', nama:'Berat Benda', x:70, y:52, q:'Rumus untuk menghitung berat benda (W) adalah ….', opt:['W = m/g','W = m + g','W = m × g','W = g/m'], a:2, ex:'Berat W = massa × percepatan gravitasi (W = m × g). Satuan Newton.'},
+    {key:'gravitasi', nama:'Massa & Berat', x:50, y:80, q:'Massa benda sebesar 10 kg. Jika g = 10 m/s², berat benda tersebut adalah ….', opt:['1 N','10 N','100 N','1000 N'], a:2, ex:'W = 10 kg × 10 m/s² = 100 N. Massa (kg) ? Berat (Newton).'}
+   ]},
+  {id:'newton', nama:'Hukum Newton', warna:'#A855F7', icon:'newton1', desc:'Kuasai tiga hukum gerak benda dari Isaac Newton.',
+   badge:'Ahli Hukum Newton',
+   organ:[
+    {key:'newton1', nama:'Newton I', x:30, y:25, q:'Sebuah benda diam akan terus diam jika resultan gaya yang bekerja padanya ….', opt:['Lebih besar dari nol','Sama dengan nol (SF = 0)','Lebih kecil dari nol','Tidak diketahui'], a:1, ex:'Hukum I Newton: benda mempertahankan keadaannya jika SF = 0 (kelembaman).'},
+    {key:'newton23', nama:'Newton II', x:68, y:28, q:'Sebuah benda bermassa 2 kg diberi gaya 10 N. Percepatan benda adalah ….', opt:['0,2 m/s²','5 m/s²','20 m/s²','12 m/s²'], a:1, ex:'Hukum II Newton: F = m × a ? a = F/m = 10/2 = 5 m/s².'},
+    {key:'newton23', nama:'Newton III', x:40, y:62, q:'Ketika kamu mendorong dinding, dinding mendorong balik kamu dengan gaya yang ….', opt:['Lebih besar','Lebih kecil','Sama besar, arah berlawanan','Sama besar, arah sama'], a:2, ex:'Hukum III Newton: aksi = reaksi (sama besar, arah berlawanan).'},
+    {key:'resultan', nama:'Resultan Gaya', x:72, y:64, q:'Dua gaya F1 = 30 N ke kanan dan F2 = 10 N ke kiri. Resultan gayanya adalah ….', opt:['40 N ke kiri','20 N ke kanan','40 N ke kanan','20 N ke kiri'], a:1, ex:'Resultan = F1 - F2 = 30 - 10 = 20 N ke kanan (searah gaya terbesar).'}
+   ]}
+];
+
+const LAB = {
+  sentuh:{nama:'Gaya Sentuh', warna:'#FF8040', icon:'gesek', item:[
+    {key:'gesek', nama:'Gaya Gesek', fungsi:'Gaya yang timbul akibat dua permukaan bersentuhan dan bergerak relatif satu sama lain.', fakta:'Gaya gesek statis lebih besar dari gaya gesek kinetis — itulah mengapa benda yang sudah bergerak lebih mudah terus bergerak.'},
+    {key:'pegas', nama:'Gaya Pegas', fungsi:'Gaya yang dihasilkan pegas karena tertekan atau tertarik dari posisi keseimbangannya. Rumus: F = k × x.', fakta:'Neraca pegas (dinamometer) bekerja berdasarkan Hukum Hooke yang ditemukan Robert Hooke (1678).'},
+    {key:'otot', nama:'Gaya Otot', fungsi:'Gaya yang berasal dari kontraksi otot. Merupakan gaya sentuh karena titik kerjanya langsung pada benda.', fakta:'Gaya otot manusia bisa sangat besar — atlet angkat besi dunia mampu mengangkat lebih dari 3× berat badannya.'}
+  ]},
+  taksentuh:{nama:'Gaya Tak Sentuh', warna:'#38D9F5', icon:'magnet', item:[
+    {key:'gravitasi', nama:'Gaya Gravitasi', fungsi:'Gaya tarik yang bekerja antara dua benda bermassa. Di Bumi, gravitasi menarik semua benda menuju pusat bumi.', fakta:'Gravitasi bulan hanya 1/6 gravitasi bumi — itulah mengapa astronot bisa melompat jauh di bulan! ??'},
+    {key:'magnet', nama:'Gaya Magnet', fungsi:'Gaya yang timbul akibat interaksi kutub magnet. Kutub sejenis tolak menolak; kutub berbeda tarik menarik.', fakta:'Bumi sendiri adalah magnet raksasa — kompas bekerja karena mengikuti medan magnet bumi. ??'},
+    {key:'resultan', nama:'Resultan Gaya', fungsi:'Jumlah vektor semua gaya yang bekerja pada suatu benda. Jika searah dijumlahkan, jika berlawanan dikurangi.', fakta:'Pada tarik tambang, tim yang menang adalah tim yang menghasilkan resultan gaya lebih besar ke arahnya. ??'}
+  ]},
+  newton:{nama:'Hukum Newton', warna:'#A855F7', icon:'newton1', item:[
+    {key:'newton1', nama:'Newton I', fungsi:'Benda cenderung mempertahankan keadaan diam atau gerak lurus beraturannya jika tidak ada gaya eksternal.', fakta:'Sabuk pengaman bekerja berdasarkan Hukum I Newton — ketika mobil berhenti mendadak, tubuh kamu cenderung terus maju! ??'},
+    {key:'newton23', nama:'Newton II', fungsi:'Percepatan benda berbanding lurus dengan gaya yang diberikan dan berbanding terbalik dengan massanya. F = m × a', fakta:'Roket berakselerasi dengan membuang gas ke belakang — makin besar gaya dorong gas, makin cepat roketnya! ??'},
+    {key:'newton23', nama:'Newton III', fungsi:'Setiap gaya aksi selalu disertai gaya reaksi yang sama besar dan berlawanan arah pada benda yang berbeda.', fakta:'Saat kamu melompat dari perahu, perahu bergerak ke arah yang berlawanan. Itu Newton III dalam aksi! ?'}
+  ]}
+};
+
+/* =========================================================
+   STATE
+   ========================================================= */
+const S = {
+  name:'', cls:'',
+  kuisIdx:0, kuisAns:Array(KUIS.length).fill(null), kuisDone:false, kuisScore:0,
+  hp:5, maxHp:5, score:0,
+  gPhase:'intro', gWorld:0, gOrgan:0, gAnswered:false, gPick:null,
+  completed:{}, badges:[],
+  labTab:'sentuh', labItem:0,
+  unlocked:{petunjuk:false,materi:false,kuis:false,game:false,lab:false,selesai:false}
+};
+
+/* =========================================================
+   NAVIGASI
+   ========================================================= */
+const STAGE_EMOJI = {petunjuk:'??',materi:'??',kuis:'??',game:'?',lab:'??',selesai:'??'};
+const STAGES=[{id:'petunjuk',label:'Petunjuk'},{id:'materi',label:'Materi'},{id:'kuis',label:'Kuis'},{id:'game',label:'Game'},{id:'lab',label:'Lab'},{id:'selesai',label:'Sertif'}];
+let current='splash';
+function show(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  const el=document.getElementById('view-'+id);
+  if(el) el.classList.add('active');
+  current=id;
+  window.scrollTo({top:0,behavior:'smooth'});
+  renderTrack();
+  if(id==='kuis') renderKuis();
+  if(id==='game') renderGame();
+  if(id==='lab'){ renderLab(); const cb=document.getElementById('toCertBtn'); if(cb){cb.disabled=!S.unlocked.selesai;cb.title=S.unlocked.selesai?'':'Selesaikan Petualangan dulu';} }
+  if(id==='selesai') renderFinale();
+}
+function unlock(id){S.unlocked[id]=true;}
+function renderTrack(){
+  const lk='??';
+  document.getElementById('track').innerHTML=STAGES.map((st,i)=>{
+    const u=S.unlocked[st.id], ac=current===st.id;
+    let c='track__s';
+    if(ac) c+=' active'; else if(u) c+=' done clickable'; else c+=' locked';
+    const inner=`<span class="n">${u?STAGE_EMOJI[st.id]:lk}</span><span>${st.label}</span>`;
+    return `<button class="${c}" data-stage="${st.id}" ${u?'':'disabled'}>${inner}</button>${i<STAGES.length-1?'<span class="track__sep"></span>':''}`;
+  }).join('');
+  document.querySelectorAll('.track__s.clickable').forEach(b=>b.addEventListener('click',()=>show(b.dataset.stage)));
+}
+document.addEventListener('click',e=>{
+  const g=e.target.closest('[data-go]');
+  if(g&&current!=='splash'){const d=g.dataset.go;if(S.unlocked[d])show(d);}
+});
+
+/* =========================================================
+   SPLASH / PARTIKEL
+   ========================================================= */
+function buildPartikel(){
+  const simbol=['?','?','?','?','?','?','?','F','N','a'];
+  const box=document.getElementById('physBg');
+  for(let i=0;i<22;i++){
+    const s=document.createElement('span');
+    s.textContent=simbol[i%simbol.length];
+    s.style.cssText=`left:${Math.random()*100}%;bottom:-10%;font-size:${0.8+Math.random()*1.4}rem;color:rgba(184,255,60,${0.08+Math.random()*.15});animation-duration:${8+Math.random()*14}s;animation-delay:${-Math.random()*12}s;font-family:var(--font-m);font-weight:700;`;
+    box.appendChild(s);
+  }
+}
+function buildPetunjuk(){
+  const steps=[['?? Daftar','Isi nama dan kelasmu sebagai Fisikawan Muda.'],['?? Pelajari Materi','Tonton 3 video pembelajaran dan amati konsep gaya.'],['?? Kuis Kesiapan','5 soal pilihan ganda — lulus kalau nilaimu minimal 75.'],['? Petualangan Game','Selesaikan misi di Lab Gaya, jaga nyawa, kumpulkan lencana!'],['?? Lab Maya','Eksplorasi percobaan gaya, lalu raih sertifikat keren.']];
+  document.getElementById('steps').innerHTML=steps.map((d,i)=>`<div class="step"><div class="step__n">${i+1}</div><div class="step__b"><strong>${d[0]}</strong><span>${d[1]}</span></div></div>`).join('');
+}
+function buildMateri(){
+  document.getElementById('videos').innerHTML=VIDEOS.map((v,i)=>
+    `<div class="vcard" id="vcard${i}"><div class="vframe">
+      <iframe id="vf${i}" src="https://www.youtube.com/embed/${v.id}" title="${v.t}" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <div class="vfallback"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18M10.7 5.1A9 9 0 0 1 21 12M6.3 6.3A9 9 0 0 0 3 12"/></svg>Video tidak muncul. <a href="https://youtu.be/${v.id}" target="_blank" rel="noopener" style="color:var(--lime)">Tonton di YouTube ?</a></div>
+    </div><div class="vcard__b"><div class="vcard__t">${v.t}</div><div class="vcard__s">YouTube · IPA SMP Kelas 8</div></div></div>`
+  ).join('');
+  const worlds=[
+    {c:'#FF8040',icon:'gesek',n:'Gaya Sentuh & Gesek ??',d:'Gaya otot, gaya pegas, gaya gesek — bekerja dengan kontak langsung.',chips:['Gaya Otot','Gaya Pegas','Gaya Gesek','Gaya Statis','Gaya Kinetis']},
+    {c:'#00D4AA',icon:'gravitasi',n:'Gaya Tak Sentuh ??',d:'Gravitasi, magnet, listrik — bekerja tanpa perlu sentuhan langsung.',chips:['Gaya Gravitasi','Gaya Magnet','Gaya Listrik','Berat Benda','W = m × g']},
+    {c:'#A855F7',icon:'newton1',n:'Hukum Newton ??',d:'Tiga hukum besar yang menjelaskan hubungan gaya dan gerak benda.',chips:['Newton I','Newton II','Newton III','Resultan Gaya','F = m × a']}
+  ];
+  document.getElementById('sysGrid').innerHTML=worlds.map(d=>`<div class="syscard" style="--c:${d.c}"><div class="syscard__ic">${imgTag(d.icon,'28px')}</div><h4>${d.n}</h4><p>${d.d}</p><div class="syscard__chips">${d.chips.map(c=>`<span class="chip">${c}</span>`).join('')}</div></div>`).join('');
+  window.addEventListener('offline',()=>document.querySelectorAll('.vcard').forEach(c=>c.classList.add('offline')));
+  window.addEventListener('online',()=>document.querySelectorAll('.vcard').forEach(c=>c.classList.remove('offline')));
+}
+document.getElementById('startBtn').addEventListener('click',startGame);
+['inName','inClass'].forEach(id=>document.getElementById(id).addEventListener('keydown',e=>{if(e.key==='Enter')startGame();}));
+function startGame(){
+  const name=document.getElementById('inName').value.trim();
+  const cls=document.getElementById('inClass').value.trim();
+  const err=document.getElementById('enrollErr');
+  if(!name){err.textContent='? Tulis namamu dulu!';document.getElementById('inName').focus();return;}
+  if(!cls){err.textContent='? Jangan lupa isi kelasmu!';document.getElementById('inClass').focus();return;}
+  err.textContent='';
+  S.name=name; S.cls=cls;
+  document.getElementById('hudName').textContent=name;
+  document.getElementById('hudClass').textContent='Kelas '+cls;
+  document.body.classList.add('started');
+  unlock('petunjuk'); unlock('materi'); unlock('kuis');
+  show('petunjuk');
+}
+
+/* =========================================================
+   HUD
+   ========================================================= */
+const heartSVG=`<svg class="hp__h" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.9-7.5-10.6A4.1 4.1 0 0 1 12 7.2 4.1 4.1 0 0 1 19.5 10.4C19.5 16.1 12 21 12 21Z"/></svg>`;
+const checkSVG=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>`;
+function medalSVG(c1,c2){return `<svg viewBox="0 0 64 64" fill="none"><defs><linearGradient id="mg${c1.replace('#','')}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c1}"/><stop offset="1" stop-color="${c2}"/></linearGradient></defs><path d="M22 6h20l-6 20H28L22 6Z" fill="${c1}" opacity=".5"/><circle cx="32" cy="40" r="17" fill="url(#mg${c1.replace('#','')})"/><circle cx="32" cy="40" r="17" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="1.4"/><circle cx="32" cy="40" r="11" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="1.4"/><path d="M32 33l2.3 4.7 5.2.7-3.8 3.6.9 5.1L32 45l-4.6 2.4.9-5.1-3.8-3.6 5.2-.7L32 33Z" fill="#fff" fill-opacity=".95"/></svg>`;}
+function shade(h){const n=parseInt(h.slice(1),16);return '#'+((1<<24)+(Math.round(((n>>16)&255)*.7)<<16)+(Math.round(((n>>8)&255)*.7)<<8)+Math.round((n&255)*.7)).toString(16).slice(1);}
+function renderHP(){let h='';for(let i=0;i<S.maxHp;i++){h+=heartSVG.replace('class="hp__h"','class="hp__h'+(i>=S.hp?' lost':'')+'\"');}document.getElementById('hp').innerHTML=h;}
+function loseHP(){S.hp=Math.max(0,S.hp-1);renderHP();const hs=document.querySelectorAll('#hp .hp__h');if(hs[S.hp])hs[S.hp].classList.add('hit');}
+function updateHUD(){
+  document.getElementById('vitals').hidden=!S.unlocked.game;
+  document.getElementById('hudScore').textContent=S.score;
+  document.getElementById('hudBadges').textContent=S.badges.length;
+  renderHP();
+}
+
+/* =========================================================
+   KUIS
+   ========================================================= */
+function renderKuis(){
+  if(S.kuisDone){renderKuisResult();return;}
+  const i=S.kuisIdx, item=KUIS[i], picked=S.kuisAns[i];
+  const keys=['A','B','C','D'];
+  const pct=Math.round(i/KUIS.length*100);
+  document.getElementById('quizWrap').innerHTML=`
+    <div class="quiz-top"><div class="quiz-prog"><div class="quiz-prog__bar" style="width:${pct}%"></div></div><div class="quiz-count">Soal ${i+1} / ${KUIS.length}</div></div>
+    <div class="qbox">
+      <span class="qlevel">? Level ${item.lvl}</span>
+      <div class="qtext">${item.q}</div>
+      <div class="opts" id="qOpts">${item.opt.map((o,j)=>`<button class="opt${picked===j?' sel':''}" data-opt="${j}"><span class="opt__key">${keys[j]}</span><span>${o}</span></button>`).join('')}</div>
+      <div class="navbtns">
+        ${i>0?'<button class="btn btn--ghost" id="qPrev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Sebelumnya</button>':''}
+        <button class="btn btn--primary" id="qNext" ${picked===null?'disabled':''}>${i===KUIS.length-1?'Lihat Hasil ??':'Lanjut ?'}</button>
+      </div>
+    </div>`;
+  document.querySelectorAll('#qOpts .opt').forEach(b=>{b.addEventListener('click',()=>{S.kuisAns[i]=parseInt(b.dataset.opt);document.querySelectorAll('#qOpts .opt').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');document.getElementById('qNext').disabled=false;});});
+  const prev=document.getElementById('qPrev'); if(prev) prev.addEventListener('click',()=>{S.kuisIdx--;renderKuis();});
+  document.getElementById('qNext').addEventListener('click',()=>{if(S.kuisAns[i]===null)return;if(i===KUIS.length-1)finishKuis();else{S.kuisIdx++;renderKuis();}});
+}
+function finishKuis(){let c=0;KUIS.forEach((k,i)=>{if(S.kuisAns[i]===k.a)c++;});S.kuisScore=Math.round(c/KUIS.length*100);S.kuisDone=true;renderKuisResult();}
+function renderKuisResult(){
+  const lulus=S.kuisScore>=KUIS_LULUS; const rc=lulus?'var(--lime)':'var(--red)';
+  let c=0;KUIS.forEach((k,i)=>{if(S.kuisAns[i]===k.a)c++;});
+  if(lulus){unlock('game');unlock('lab');}
+  updateHUD();
+  document.getElementById('quizWrap').innerHTML=`
+    <div class="result">
+      <div class="result__ring" style="--p:${S.kuisScore};--rc:${rc}"><div class="result__score">${S.kuisScore}<small>NILAI</small></div></div>
+      <div class="result__msg" style="color:${rc}">${lulus?'Keren banget, Lulus! ??':'Belum Lulus ??'}</div>
+      <p class="result__detail">Jawaban benar ${c} dari ${KUIS.length}. ${lulus?'Petualangan Game kini terbuka! ?':'Baca lagi materinya ya, nilai minimal '+KUIS_LULUS+'.'}</p>
+      <div class="navbtns" style="justify-content:center">
+        ${lulus
+          ?`<button class="btn btn--primary" id="goGame">Main Game Sekarang! ?</button>`
+          :`<button class="btn btn--ghost" id="revMat">Pelajari Materi Lagi ??</button><button class="btn btn--primary" id="retryKuis">Ulangi Kuis ??</button>`
+        }
+      </div>
+    </div>`;
+  if(lulus) document.getElementById('goGame').addEventListener('click',()=>show('game'));
+  else{
+    document.getElementById('retryKuis').addEventListener('click',()=>{S.kuisIdx=0;S.kuisAns=Array(KUIS.length).fill(null);S.kuisDone=false;S.kuisScore=0;renderKuis();});
+    document.getElementById('revMat').addEventListener('click',()=>show('materi'));
+  }
+}
+
+/* =========================================================
+   GAME
+   ========================================================= */
+function renderGame(){
+  updateHUD();
+  const root=document.getElementById('gameRoot');
+  if(S.gPhase==='gameover'){root.innerHTML=gameOverHTML();bindGameOver();return;}
+  if(S.gPhase==='win'){root.innerHTML=winHTML();bindWin();return;}
+  const w=DUNIA[S.gWorld], c=w.warna;
+  const done=w.organ.filter(o=>S.completed[w.id+':'+o.key+'_'+w.organ.indexOf(o)]).length;
+  const dots=w.organ.map((o,i)=>{let cl='world-dot';if(S.completed[w.id+':'+o.key+'_'+i])cl+=' done';else if(i===S.gOrgan)cl+=' now';return `<span class="${cl}"></span>`;}).join('');
+  const nodes=w.organ.map((o,i)=>{
+    const k=w.id+':'+o.key+'_'+i;
+    const isDone=S.completed[k];
+    let st=isDone?'node--done':(i===S.gOrgan?'node--active':'node--locked');
+    const click=(i===S.gOrgan&&!isDone)?`data-organ="${i}"`:'disabled';
+    return `<div class="node ${st}" style="left:${o.x}%;top:${o.y}%;--c:${c}">
+      <button class="node__btn" ${click} aria-label="${o.nama}">${imgTag(o.key,'34px')}${isDone?'<span class="node__check">'+checkSVG+'</span>':''}</button>
+      <span class="node__label">${o.nama}</span></div>`;
+  }).join('');
+  root.innerHTML=`
+    <div class="game-head" style="--c:${c}">
+      <span class="world-badge"><span class="world-badge__ic">${imgTag(w.icon,'17px')}</span>${w.nama}</span>
+      <span class="world-prog">Percobaan ${done} / ${w.organ.length}</span>
+      <span class="world-dots" style="margin-left:0">${dots}</span>
+    </div>
+    <div class="game" style="--c:${c}">
+      <div class="board">
+        <img src="assets-gaya/lab-board.svg" class="board__bg" alt="lab" aria-hidden="true">
+        ${nodes}
+      </div>
+      <div class="gpanel" id="gpanel" style="--c:${c}">${panelHTML(w)}</div>
+    </div>`;
+  root.querySelectorAll('.node__btn[data-organ]').forEach(b=>b.addEventListener('click',()=>openOrgan(parseInt(b.dataset.organ))));
+  bindPanel(w);
+}
+function panelHTML(w){
+  const o=w.organ[S.gOrgan];
+  if(!S.gAnswered&&S.gPick===null&&S.gPhase!=='question')
+    return `<div class="gpanel__k">${imgTag(w.icon,'14px')} Misi: ${w.nama}</div><div class="gpanel__title">Percobaan ${S.gOrgan+1}: ${o?o.nama:''}</div><p class="gpanel__intro">${w.desc} Ketuk eksperimen <b style="color:var(--c)">${o?o.nama:''}</b> yang berkedip di papan lab untuk mulai! ??</p><div class="gpanel__hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg> Jawaban salah = nyawa berkurang 1! ??</div>`;
+  return questionHTML(w);
+}
+function questionHTML(w){
+  const o=w.organ[S.gOrgan], keys=['A','B','C','D'];
+  const opts=o.opt.map((t,j)=>{let c='qg-opt';if(S.gAnswered){if(j===o.a)c+=' correct';else if(j===S.gPick)c+=' wrong';c+=' locked';}else if(S.gPick===j)c+=' sel';return `<button class="${c}" data-qopt="${j}"><span class="qg-opt__k">${keys[j]}</span><span>${t}</span></button>`;}).join('');
+  let fb='',btn='';
+  if(S.gAnswered){const ok=S.gPick===o.a;fb=`<div class="qg-fb ${ok?'ok':'no'}">${ok?'? Mantap! ':'? Belum tepat. '}${o.ex}</div>`;const last=S.gOrgan===w.organ.length-1;btn=`<button class="btn btn--sys" id="gNext">${last?'Selesaikan Misi ??':'Percobaan Berikutnya ?'}</button>`;}
+  else btn=`<button class="btn btn--sys" id="gAnswer" ${S.gPick===null?'disabled':''}>Cek Jawaban! ?</button>`;
+  return `<div class="gpanel__k">${imgTag(o.key,'14px')} ${o.nama}</div><div class="qg-text">${o.q}</div><div class="qg-opts" id="gOpts">${opts}</div>${fb}${btn}`;
+}
+function openOrgan(i){S.gOrgan=i;S.gPhase='question';S.gAnswered=false;S.gPick=null;const w=DUNIA[S.gWorld];document.getElementById('gpanel').innerHTML=questionHTML(w);bindPanel(w);}
+function bindPanel(w){
+  const opts=document.getElementById('gOpts');
+  if(opts&&!S.gAnswered) opts.querySelectorAll('.qg-opt').forEach(b=>b.addEventListener('click',()=>{S.gPick=parseInt(b.dataset.qopt);opts.querySelectorAll('.qg-opt').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');const a=document.getElementById('gAnswer');if(a)a.disabled=false;}));
+  const ans=document.getElementById('gAnswer'); if(ans) ans.addEventListener('click',()=>answerOrgan(w));
+  const nx=document.getElementById('gNext'); if(nx) nx.addEventListener('click',()=>nextOrgan(w));
+}
+function answerOrgan(w){
+  if(S.gPick===null)return;
+  const o=w.organ[S.gOrgan]; S.gAnswered=true;
+  const k=w.id+':'+o.key+'_'+S.gOrgan;
+  if(S.gPick===o.a)S.score+=100; else{S.score+=20;loseHP();}
+  S.completed[k]=true; updateHUD(); renderGame();
+  if(S.hp<=0) setTimeout(()=>{S.gPhase='gameover';renderGame();},900);
+}
+function nextOrgan(w){
+  const allDone=w.organ.every((o,i)=>S.completed[w.id+':'+o.key+'_'+i]);
+  if(allDone){if(!S.badges.find(b=>b.id===w.id)) S.badges.push({id:w.id,nama:w.badge,c:w.warna});updateHUD();showWorldReward(w);return;}
+  const ni=w.organ.findIndex((o,i)=>!S.completed[w.id+':'+o.key+'_'+i]);
+  S.gOrgan=ni; S.gPhase='intro'; S.gAnswered=false; S.gPick=null; renderGame();
+}
+function showWorldReward(w){
+  const root=document.getElementById('gameRoot'), last=S.gWorld===DUNIA.length-1;
+  root.innerHTML=`<div class="board" style="--c:${w.warna};min-height:auto;padding:38px 20px;background:rgba(26,13,56,.96)"><div class="reward"><div class="reward__medal">${medalSVG(w.warna,shade(w.warna))}</div><div class="reward__t">?? Lencana "${w.badge}" diraih!</div><p class="reward__s">Keren! Kamu menguasai semua percobaan ${w.nama}. ${last?'Tinggal satu langkah lagi — kamu hampir jadi Fisikawan Terhebat! ??':'Lanjut ke topik berikutnya!'}</p><div class="navbtns" style="justify-content:center"><button class="btn btn--gold" id="worldNext">${last?'Selesaikan Petualangan ??':'Topik Berikutnya ?'}</button></div></div></div>`;
+  document.getElementById('worldNext').addEventListener('click',()=>{if(last)winAdventure();else{S.gWorld++;S.gOrgan=0;S.gPhase='intro';S.gAnswered=false;S.gPick=null;renderGame();}});
+}
+function winAdventure(){if(!S.badges.find(b=>b.id==='fisikawan')) S.badges.push({id:'fisikawan',nama:'Fisikawan Muda Terbaik',c:'#B8FF3C'});unlock('selesai');S.gPhase='win';updateHUD();renderGame();fireConfetti();}
+function winHTML(){return `<div class="board" style="--c:#B8FF3C;min-height:auto;padding:38px 20px;background:rgba(10,30,0,.9)"><div class="reward"><div class="reward__medal">${medalSVG('#B8FF3C','#5A9000')}</div><div class="reward__t" style="font-size:1.65rem;color:var(--lime)">? FISIKAWAN MUDA TERBAIK!</div><p class="reward__s" style="color:rgba(184,255,60,.8)">Luar biasa, ${S.name}! Semua percobaan berhasil kamu taklukkan! Skor akhir: <b style="color:var(--lime)">${S.score}</b> ??</p><div class="navbtns" style="justify-content:center"><button class="btn btn--ghost" id="goLabW">Buka Lab Maya ??</button><button class="btn btn--gold" id="goCertW">Ambil Sertifikatku! ??</button></div></div></div>`;}
+function bindWin(){document.getElementById('goLabW').addEventListener('click',()=>show('lab'));document.getElementById('goCertW').addEventListener('click',()=>show('selesai'));}
+function gameOverHTML(){return `<div class="gameover"><div class="gameover__ic">??</div><div class="result__msg" style="color:var(--red)">Nyawa Habis! ??</div><p class="result__detail">Jangan menyerah! Baca lagi materinya dan coba lagi — kamu pasti bisa! ??</p><div class="navbtns" style="justify-content:center"><button class="btn btn--ghost" id="goLabGO">Ke Lab Maya ??</button><button class="btn btn--primary" id="retryGame">Coba Lagi! ?</button></div></div>`;}
+function bindGameOver(){unlock('lab');renderTrack();document.getElementById('retryGame').addEventListener('click',resetGame);document.getElementById('goLabGO').addEventListener('click',()=>show('lab'));}
+function resetGame(){S.hp=S.maxHp;S.score=0;S.gPhase='intro';S.gWorld=0;S.gOrgan=0;S.gAnswered=false;S.gPick=null;S.completed={};S.badges=[];updateHUD();renderGame();}
+
+/* =========================================================
+   LAB MAYA
+   ========================================================= */
+function renderLab(){
+  const root=document.getElementById('labRoot');
+  const tabKeys=Object.keys(LAB);
+  const tabs=tabKeys.map(k=>{const s=LAB[k];return `<button class="lab-tab${k===S.labTab?' active':''}" data-sys="${k}" style="--c:${s.warna}">${imgTag(s.icon,'17px')} ${s.nama}</button>`;}).join('');
+  const sys=LAB[S.labTab], c=sys.warna;
+  const items=sys.item.map((o,i)=>`<div class="lab-item${i===S.labItem?' active':''}" data-item="${i}" style="--c:${c}"><img src="assets-gaya/${o.key}.svg" alt="${o.nama}" width="88" height="88"><span class="lab-item__lbl">${o.nama}</span></div>`).join('');
+  root.innerHTML=`
+    <div class="lab-tabs">${tabs}</div>
+    <div class="lab" style="--c:${c}">
+      <div class="lab-stage">
+        <div class="lab-scan"></div>
+        <div class="lab-grid">${items}</div>
+      </div>
+      <div class="lab-info" id="labInfo" style="--c:${c}">${labInfoHTML(sys)}</div>
+    </div>`;
+  root.querySelectorAll('.lab-tab').forEach(b=>b.addEventListener('click',()=>{S.labTab=b.dataset.sys;S.labItem=0;renderLab();}));
+  root.querySelectorAll('.lab-item').forEach(b=>b.addEventListener('click',()=>{S.labItem=parseInt(b.dataset.item);root.querySelectorAll('.lab-item').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.getElementById('labInfo').innerHTML=labInfoHTML(LAB[S.labTab]);}));
+}
+function labInfoHTML(sys){
+  const o=sys.item[S.labItem];
+  if(!o) return `<div class="lab-info__empty"><div>??</div>Klik gambar eksperimen di sebelah kiri untuk lihat penjelasannya!</div>`;
+  return `<div class="lab-info__art"><img src="assets-gaya/${o.key}.svg" alt="${o.nama}" width="128" height="128"></div>
+    <div class="lab-info__k">${sys.nama}</div>
+    <div class="lab-info__name">${o.nama}</div>
+    <div class="lab-info__row">
+      <div class="lab-info__lbl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3v6l-5 8a2 2 0 0 0 1.8 3h12.4A2 2 0 0 0 20 17l-5-8V3"/><path d="M8 3h8"/></svg> Fungsi &amp; Penjelasan</div>
+      <div class="lab-info__txt">${o.fungsi}</div>
+    </div>
+    <div class="lab-info__fact">
+      <div class="lab-info__lbl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V18h6v-1.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2Z"/></svg> Tahukah kamu? ??</div>
+      <div class="lab-info__txt">${o.fakta}</div>
+    </div>`;
+}
+
+/* =========================================================
+   SERTIFIKAT
+   ========================================================= */
+function renderFinale(){
+  const tgl=new Date().toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'});
+  const badgeCards=S.badges.map(b=>`<div class="cert-badge"><div class="cert-badge__m">${medalSVG(b.c,shade(b.c))}</div><div class="cert-badge__t">${b.nama}</div></div>`).join('');
+  document.getElementById('finaleRoot').innerHTML=`
+    <div class="eyebrow" style="justify-content:center">?? Tahap 6 — Kamu Berhasil!</div>
+    <h1 class="title" style="text-align:center">Misi Selesai! ??</h1>
+    <div class="cert" id="cert">
+      <div class="cert__seal">?</div>
+      <div class="cert__k">Sertifikat Penghargaan</div>
+      <div class="cert__title">Murid Bergaya</div>
+      <div class="cert__sub">Fisikawan Muda Terhebat 2024/2025</div>
+      <div class="cert__sub" style="margin-top:12px">dengan bangga diberikan kepada</div>
+      <div class="cert__name">${S.name||'—'}</div>
+      <div class="cert__line"></div>
+      <div class="cert__sub">Kelas ${S.cls||'—'}</div>
+      <p class="cert__desc">Telah menyelesaikan seluruh petualangan MURID BERGAYA dan mampu menyebutkan jenis-jenis gaya serta menjelaskan pengaruh gaya terhadap gerak benda sesuai Hukum Newton. Skor akhir: <b>${S.score}</b> poin! ?</p>
+      <div class="cert__badges">${badgeCards}</div>
+      <div class="cert__meta">
+        <div><b>Pengembang</b>Salehuddin — Guru SMP Negeri Sinombayuga</div>
+        <div><b>Sumber</b>Ruang Murid &amp; Buku IPA SMP Kelas 8</div>
+        <div><b>Tanggal</b>${tgl}</div>
+      </div>
+    </div>
+    <div class="navbtns" style="justify-content:center">
+      <button class="btn btn--ghost" onclick="window.print()">??? Cetak Sertifikat</button>
+      <button class="btn btn--ghost" onclick="show('lab')">?? Balik ke Lab</button>
+      <button class="btn btn--primary" onclick="location.reload()">? Main Lagi!</button>
+    </div>`;
+  fireConfetti();
+}
+
+/* KONFETI */
+function fireConfetti(){
+  if(window.matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  const cols=['#B8FF3C','#FF3D8A','#38D9F5','#A855F7','#FFD600','#FF8C42'];
+  const box=document.createElement('div');box.className='confetti';
+  for(let i=0;i<44;i++){const s=document.createElement('i');s.style.left=Math.random()*100+'%';s.style.background=cols[i%cols.length];s.style.animationDuration=(2.2+Math.random()*1.8)+'s';s.style.animationDelay=(Math.random()*.6)+'s';s.style.transform='rotate('+(Math.random()*360)+'deg)';s.style.borderRadius=Math.random()>.5?'50%':'2px';box.appendChild(s);}
+  document.body.appendChild(box);
+  setTimeout(()=>box.remove(),5500);
+}
+
+/* INIT */
+buildPartikel();
+buildPetunjuk();
+buildMateri();
+renderTrack();
+</script>
+</body>
+</html>

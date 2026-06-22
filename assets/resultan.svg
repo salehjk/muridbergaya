@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 240" width="260" height="240">
+  <defs>
+    <filter id="rSh"><feDropShadow dx="1" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="0.3"/></filter>
+  </defs>
+
+  <text x="130" y="18" text-anchor="middle" font-family="'Plus Jakarta Sans',sans-serif" font-size="14" font-weight="700" fill="#A8E0FF">Resultan Gaya</text>
+
+  <!-- ===== SEARAH (MENJUMLAHKAN) ===== -->
+  <rect x="14" y="28" width="232" height="86" rx="9" fill="rgba(100,200,100,0.07)" stroke="rgba(100,200,100,0.18)" stroke-width="0.8"/>
+  <text x="130" y="45" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="700" fill="#90F090">Gaya Searah → FR = F₁ + F₂</text>
+
+  <!-- balok -->
+  <rect x="90" y="60" width="80" height="30" rx="7" fill="#4078C0" filter="url(#rSh)"/>
+  <rect x="94" y="64" width="22" height="20" rx="3" fill="#80A8E0" opacity="0.3"/>
+  <!-- F1 panah kanan -->
+  <line x1="170" y1="75" x2="196" y2="75" stroke="#E85D24" stroke-width="3" stroke-linecap="round"/>
+  <polygon points="196,70.5 208,75 196,79.5" fill="#E85D24"/>
+  <text x="178" y="68" font-family="sans-serif" font-size="10" font-weight="700" fill="#E85D24">F₁</text>
+  <!-- F2 panah kanan (dari kiri) -->
+  <line x1="90" y1="75" x2="50" y2="75" stroke="#60B0FF" stroke-width="3" stroke-linecap="round"/>
+  <polygon points="90,70.5 90,79.5 76,75" fill="none"/>
+  <!-- F2 dari kiri ke kanan juga -->
+  <line x1="36" y1="75" x2="70" y2="75" stroke="#60B0FF" stroke-width="3" stroke-linecap="round"/>
+  <polygon points="70,70.5 82,75 70,79.5" fill="#60B0FF"/>
+  <text x="44" y="68" font-family="sans-serif" font-size="10" font-weight="700" fill="#60B0FF">F₂</text>
+  <!-- FR = resultan -->
+  <rect x="78" y="94" width="104" height="16" rx="5" fill="rgba(0,0,0,0.3)"/>
+  <text x="130" y="106" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#90F090">FR = F₁ + F₂ (searah)</text>
+
+  <!-- ===== BERLAWANAN (MENGURANGI) ===== -->
+  <rect x="14" y="124" width="232" height="86" rx="9" fill="rgba(255,100,100,0.07)" stroke="rgba(255,100,100,0.18)" stroke-width="0.8"/>
+  <text x="130" y="141" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="700" fill="#FF9090">Gaya Berlawanan → FR = F₁ − F₂</text>
+
+  <!-- balok 2 -->
+  <rect x="90" y="156" width="80" height="30" rx="7" fill="#4078C0" filter="url(#rSh)"/>
+  <rect x="94" y="160" width="22" height="20" rx="3" fill="#80A8E0" opacity="0.3"/>
+  <!-- F1 besar ke kanan -->
+  <line x1="170" y1="171" x2="208" y2="171" stroke="#E85D24" stroke-width="3.5" stroke-linecap="round"/>
+  <polygon points="208,166.5 220,171 208,175.5" fill="#E85D24"/>
+  <text x="188" y="164" font-family="sans-serif" font-size="10" font-weight="700" fill="#E85D24">F₁=30N</text>
+  <!-- F2 ke kiri lebih kecil -->
+  <line x1="90" y1="171" x2="58" y2="171" stroke="#60B0FF" stroke-width="3.5" stroke-linecap="round"/>
+  <polygon points="58,166.5 46,171 58,175.5" fill="#60B0FF"/>
+  <text x="46" y="164" font-family="sans-serif" font-size="10" font-weight="700" fill="#60B0FF">F₂=10N</text>
+  <!-- FR kecil ke kanan -->
+  <line x1="170" y1="192" x2="194" y2="192" stroke="#90F090" stroke-width="2.5" stroke-dasharray="5 3" stroke-linecap="round"/>
+  <polygon points="194,188.5 202,192 194,195.5" fill="#90F090"/>
+  <text x="130" y="210" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#90F090">FR = 30−10 = 20 N (ke kanan)</text>
+
+  <!-- label satuan -->
+  <text x="130" y="228" text-anchor="middle" font-family="sans-serif" font-size="8.5" fill="#A0B8C8" opacity="0.8">Satuan gaya: Newton (N) · 1 N = 1 kg·m/s²</text>
+</svg>
