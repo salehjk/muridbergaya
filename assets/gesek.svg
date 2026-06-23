@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <linearGradient id="surf" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#A0722A"/><stop offset="100%" stop-color="#6B4510"/></linearGradient>
+    <linearGradient id="blk" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#5B9EE0"/><stop offset="100%" stop-color="#1D5FA8"/></linearGradient>
+    <linearGradient id="bgG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1A1040"/><stop offset="100%" stop-color="#0D0820"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="sh"><feDropShadow dx="3" dy="6" stdDeviation="8" flood-color="#000" flood-opacity="0.55"/></filter>
+    <marker id="arH" viewBox="0 0 14 14" refX="12" refY="7" markerWidth="8" markerHeight="8" orient="auto"><polygon points="0,1 14,7 0,13" fill="#FF6030"/></marker>
+    <marker id="arB" viewBox="0 0 14 14" refX="12" refY="7" markerWidth="8" markerHeight="8" orient="auto"><polygon points="0,1 14,7 0,13" fill="#FFD020"/></marker>
+    <marker id="arG" viewBox="0 0 14 14" refX="12" refY="7" markerWidth="8" markerHeight="8" orient="auto"><polygon points="0,1 14,7 0,13" fill="#00D898"/></marker>
+    <marker id="arR" viewBox="0 0 14 14" refX="12" refY="7" markerWidth="8" markerHeight="8" orient="auto"><polygon points="14,1 0,7 14,13" fill="#FF6030"/></marker>
+  </defs>
+
+  <!-- Latar -->
+  <rect width="800" height="600" fill="url(#bgG)" rx="18"/>
+  <rect width="800" height="600" fill="none" stroke="rgba(184,255,60,.18)" stroke-width="3" rx="18"/>
+
+  <!-- Judul -->
+  <text x="400" y="52" text-anchor="middle" font-family="'Nunito',sans-serif" font-size="36" font-weight="900" fill="#B8FF3C" filter="url(#glow)">⚡ GAYA GESEK</text>
+  <text x="400" y="82" text-anchor="middle" font-family="'Nunito',sans-serif" font-size="18" fill="rgba(184,255,60,.65)">Gaya yang menentang gerak benda</text>
+
+  <!-- Permukaan kasar (mikro) detail -->
+  <rect x="80" y="350" width="640" height="44" rx="8" fill="url(#surf)" filter="url(#sh)"/>
+  <text x="400" y="372" text-anchor="middle" font-family="'Nunito',sans-serif" font-size="14" font-weight="700" fill="#FFE0A0">PERMUKAAN KASAR</text>
+  <!-- tonjolan permukaan -->
+  <g fill="#8B6020" opacity="0.7">
+    <polygon points="100,350 110,334 120,350"/><polygon points="130,350 140,334 150,350"/>
+    <polygon points="160,350 170,334 180,350"/><polygon points="195,350 205,334 215,350"/>
+    <polygon points="230,350 240,334 250,350"/><polygon points="268,350 278,334 288,350"/>
+    <polygon points="306,350 316,334 326,350"/><polygon points="344,350 354,334 364,350"/>
+    <polygon points="382,350 392,334 402,350"/><polygon points="420,350 430,334 440,350"/>
+    <polygon points="458,350 468,334 478,350"/><polygon points="496,350 506,334 516,350"/>
+    <polygon points="534,350 544,334 554,350"/><polygon points="572,350 582,334 592,350"/>
+    <polygon points="612,350 622,334 632,350"/><polygon points="650,350 660,334 670,350"/>
+    <polygon points="688,350 698,334 708,350"/>
+  </g>
+
+  <!-- Balok -->
+  <rect x="270" y="250" width="220" height="100" rx="12" fill="url(#blk)" filter="url(#sh)"/>
+  <rect x="278" y="258" width="68" height="84" rx="6" fill="rgba(255,255,255,.18)"/>
+  <text x="380" y="307" text-anchor="middle" font-family="'Nunito',sans-serif" font-size="24" font-weight="900" fill="#fff">BALOK</text>
+  <text x="380" y="330" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-size="14" font-weight="700" fill="rgba(255,255,255,.7)">m = 2 kg</text>
+
+  <!-- Panah F (gaya tarik) ke kanan — ORANGE -->
+  <line x1="490" y1="300" x2="630" y2="300" stroke="#FF6030" stroke-width="7" stroke-linecap="round" marker-end="url(#arH)" filter="url(#glow)"/>
+  <!-- Label F -->
+  <rect x="632" y="276" width="108" height="46" rx="10" fill="rgba(255,96,48,.18)" stroke="#FF6030" stroke-width="2"/>
+  <text x="686" y="298" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-size="22" font-weight="700" fill="#FF8050">F = 20 N</text>
+  <text x="686" y="316" text-anchor="middle" font-family="'Nunito',sans-serif" font-size="12" fill="#FF9070">Gaya Tarik</text>
+
+  <!-- Panah fg (gaya gesek) ke kiri — KUNING -->
+  <line x1="270" y1="320" x2="130" y2="320" stroke="#FFD020" stroke-width="7" stroke-linecap="round" marker-end="url(#arR)" filter="url(#glow)"/>
+  <rect x="60" y="296" width="104" height="46" rx="10" fill="rgba(255,208,32,.18)" stroke="#FFD020" stroke-width="2"/>
+  <text x="112" y="318" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-size="22" font-weight="700" fill="#FFD840">fg = 8 N</text>
+  <text x="112" y="336" text-anchor="middle" font-family="'Nunito',sans-serif" font-size="12" fill="#FFE070">Gaya Gesek</text>
+
+  <!-- Panah N (gaya normal) ke atas — HIJAU -->
+  <line x1="380" y1="250" x2="380" y2="148" stroke="#00D898" stroke-width="6" stroke-linecap="round" marker-end="url(#arG)" filter="url(#glow)"/>
+  <rect x="388" y="130" width="78" height="40" rx="8" fill="rgba(0,216,152,.14)" stroke="#00D898" stroke-width="2"/>
+  <text x="427" y="151" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-size="20" font-weight="700" fill="#00D898">N</text>
+  <text x="427" y="166" text-anchor="middle" font-family="'Nunito',sans-serif" font-size="11" fill="#00B880">Gaya Normal</text>
+
+  <!-- Panah W (berat) ke bawah — ORANGE -->
+  <line x1="380" y1="394" x2="380" y2="468" stroke="#FF6030" stroke-width="6" stroke-linecap="round"/>
+  <polygon points="374,468 380,488 386,468" fill="#FF6030"/>
+  <rect x="388" y="464" width="78" height="40" rx="8" fill="rgba(255,96,48,.14)" stroke="#FF6030" stroke-width="2"/>
+  <text x="427" y="484" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-size="20" font-weight="700" fill="#FF6030">W</text>
+  <text x="427" y="499" text-anchor="middle" font-family="'Nunito',sans-serif" font-size="11" fill="#FF7040">Berat Benda</text>
+
+  <!-- Rumus -->
+  <rect x="80" y="518" width="640" height="64" rx="14" fill="rgba(184,255,60,.08)" stroke="rgba(184,255,60,.3)" stroke-width="2"/>
+  <text x="400" y="546" text-anchor="middle" font-family="'Space Grotesk',sans-serif" font-size="20" font-weight="700" fill="#B8FF3C">Resultan Gaya (FR) = F − fg = 20 − 8 = 12 N (ke kanan)</text>
+  <text x="400" y="570" text-anchor="middle" font-family="'Nunito',sans-serif" font-size="16" fill="rgba(184,255,60,.7)">fg berlawanan arah dengan gerak benda · Dipengaruhi kekasaran permukaan &amp; berat benda</text>
+
+  <!-- Arah gerak -->
+  <text x="730" y="260" font-family="'Nunito',sans-serif" font-size="13" fill="rgba(255,255,255,.4)" text-anchor="middle">Arah</text>
+  <text x="730" y="276" font-family="'Nunito',sans-serif" font-size="13" fill="rgba(255,255,255,.4)" text-anchor="middle">Gerak</text>
+  <line x1="710" y1="284" x2="754" y2="284" stroke="rgba(255,255,255,.25)" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <polygon points="754,280 766,284 754,288" fill="rgba(255,255,255,.25)"/>
+</svg>
